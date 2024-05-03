@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -8,7 +9,7 @@ declare(strict_types=1);
 namespace Space\Blog\Block\Adminhtml\Blog\Edit;
 
 use Magento\Backend\Block\Widget\Context;
-use Space\Blog\Api\BlogRepositoryInterface;
+use Space\Blog\Api\PostRepositoryInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\LocalizedException;
 
@@ -20,22 +21,22 @@ class GenericButton
     protected Context $context;
 
     /**
-     * @var BlogRepositoryInterface
+     * @var PostRepositoryInterface
      */
-    protected BlogRepositoryInterface $blogRepository;
+    protected PostRepositoryInterface $postRepository;
 
     /**
      * Construct
      *
      * @param Context $context
-     * @param BlogRepositoryInterface $blogRepository
+     * @param PostRepositoryInterface $postRepository
      */
     public function __construct(
         Context $context,
-        BlogRepositoryInterface $blogRepository
+        PostRepositoryInterface $postRepository
     ) {
         $this->context = $context;
-        $this->blogRepository = $blogRepository;
+        $this->postRepository = $postRepository;
     }
 
     /**
@@ -47,7 +48,7 @@ class GenericButton
     public function getBlogId(): ?int
     {
         try {
-            return $this->blogRepository->getById(
+            return $this->postRepository->getById(
                 (int)$this->context->getRequest()->getParam('blog_id')
             )->getId();
         } catch (NoSuchEntityException $e) {

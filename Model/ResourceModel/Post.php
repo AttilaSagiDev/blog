@@ -17,12 +17,12 @@ use Magento\Framework\Model\ResourceModel\Db\Context;
 use Space\Blog\Api\Data\PostInterface;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\DB\Select;
-use Space\Blog\Model\Blog as BlogModel;
+use Space\Blog\Model\Post as PostModel;
 use Magento\Store\Model\Store;
 use Magento\Framework\Exception\LocalizedException;
 use Exception;
 
-class Blog extends AbstractDb
+class Post extends AbstractDb
 {
     /**
      * @var EntityManager
@@ -87,10 +87,10 @@ class Blog extends AbstractDb
      * @param AbstractModel $object
      * @param mixed $value
      * @param string $field
-     * @return $this|Blog
+     * @return $this|Post
      * @throws LocalizedException
      */
-    public function load(AbstractModel $object, $value, $field = null): Blog|static
+    public function load(AbstractModel $object, $value, $field = null): Post|static
     {
         $blogId = $this->getBlogId($object, $value, $field);
         if ($blogId) {
@@ -118,10 +118,10 @@ class Blog extends AbstractDb
      * Delete the object
      *
      * @param AbstractModel $object
-     * @return AbstractDb|Blog|$this
+     * @return AbstractDb|Post|$this
      * @throws Exception
      */
-    public function delete(AbstractModel $object): AbstractDb|Blog|static
+    public function delete(AbstractModel $object): AbstractDb|Post|static
     {
         $this->entityManager->delete($object);
 
@@ -162,7 +162,7 @@ class Blog extends AbstractDb
      *
      * @param string $field
      * @param mixed $value
-     * @param BlogModel|AbstractModel $object
+     * @param PostModel|AbstractModel $object
      * @return Select
      * @throws Exception
      */

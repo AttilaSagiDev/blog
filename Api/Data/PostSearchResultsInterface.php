@@ -10,7 +10,7 @@ namespace Space\Blog\Api\Data;
 
 use Magento\Framework\Api\SearchResultsInterface;
 
-interface BlogSearchResultsInterface extends SearchResultsInterface
+interface PostSearchResultsInterface extends SearchResultsInterface
 {
     /**
      * Get blog items

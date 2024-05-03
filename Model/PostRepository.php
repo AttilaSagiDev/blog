@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Space\Blog\Model;
 
-use Space\Blog\Api\BlogRepositoryInterface;
+use Space\Blog\Api\PostRepositoryInterface;
 use Space\Blog\Api\Data;
 use Space\Blog\Api\Data\PostInterface;
-use Space\Blog\Model\ResourceModel\Blog as ResourceBlog;
-use Space\Blog\Model\ResourceModel\Blog\CollectionFactory as BlogCollectionFactory;
+use Space\Blog\Model\ResourceModel\Post as ResourceBlog;
+use Space\Blog\Model\ResourceModel\Post\CollectionFactory as PostCollectionFactory;
 use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Reflection\DataObjectProcessor;
 use Space\Blog\Api\Data\PostInterfaceFactory;
@@ -26,7 +26,7 @@ use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\LocalizedException;
 
-class BlogRepository implements BlogRepositoryInterface
+class PostRepository implements PostRepositoryInterface
 {
     /**
      * @var ResourceBlog
@@ -34,19 +34,19 @@ class BlogRepository implements BlogRepositoryInterface
     protected ResourceBlog $resource;
 
     /**
-     * @var BlogFactory
+     * @var PostFactory
      */
-    protected BlogFactory $blogFactory;
+    protected PostFactory $postFactory;
 
     /**
-     * @var BlogCollectionFactory
+     * @var PostCollectionFactory
      */
-    protected BlogCollectionFactory $blogCollectionFactory;
+    protected PostCollectionFactory $postCollectionFactory;
 
     /**
-     * @var Data\BlogSearchResultsInterfaceFactory
+     * @var Data\PostSearchResultsInterfaceFactory
      */
-    protected Data\BlogSearchResultsInterfaceFactory $searchResultsFactory;
+    protected Data\PostSearchResultsInterfaceFactory $searchResultsFactory;
 
     /**
      * @var DataObjectHelper
@@ -80,10 +80,10 @@ class BlogRepository implements BlogRepositoryInterface
 
     /**
      * @param ResourceBlog $resource
-     * @param BlogFactory $blogFactory
+     * @param PostFactory $postFactory
      * @param PostInterfaceFactory $dataPostFactory
-     * @param BlogCollectionFactory $blogCollectionFactory
-     * @param Data\BlogSearchResultsInterfaceFactory $searchResultsFactory
+     * @param PostCollectionFactory $postCollectionFactory
+     * @param Data\PostSearchResultsInterfaceFactory $searchResultsFactory
      * @param DataObjectHelper $dataObjectHelper
      * @param DataObjectProcessor $dataObjectProcessor
      * @param StoreManagerInterface $storeManager
@@ -92,10 +92,10 @@ class BlogRepository implements BlogRepositoryInterface
      */
     public function __construct(
         ResourceBlog $resource,
-        BlogFactory $blogFactory,
+        PostFactory $postFactory,
         PostInterfaceFactory $dataPostFactory,
-        BlogCollectionFactory $blogCollectionFactory,
-        Data\BlogSearchResultsInterfaceFactory $searchResultsFactory,
+        PostCollectionFactory $postCollectionFactory,
+        Data\PostSearchResultsInterfaceFactory $searchResultsFactory,
         DataObjectHelper $dataObjectHelper,
         DataObjectProcessor $dataObjectProcessor,
         StoreManagerInterface $storeManager,
@@ -103,8 +103,8 @@ class BlogRepository implements BlogRepositoryInterface
         ?HydratorInterface $hydrator = null
     ) {
         $this->resource = $resource;
-        $this->blogFactory = $blogFactory;
-        $this->blogCollectionFactory = $blogCollectionFactory;
+        $this->postFactory = $postFactory;
+        $this->postCollectionFactory = $postCollectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
         $this->dataObjectHelper = $dataObjectHelper;
         $this->dataPostFactory = $dataPostFactory;
@@ -129,7 +129,7 @@ class BlogRepository implements BlogRepositoryInterface
             $blog->setStoreId($this->storeManager->getStore()->getId());
         }
 
-        if ($blog->getId() && $blog instanceof Blog && !$blog->getOrigData()) {
+        if ($blog->getId() && $blog instanceof Post && !$blog->getOrigData()) {
             $blog = $this->hydrator->hydrate($this->getById($blog->getId()), $this->hydrator->extract($blog));
         }
 
@@ -151,7 +151,7 @@ class BlogRepository implements BlogRepositoryInterface
      */
     public function getById(int $blogId): PostInterface
     {
-        $blog = $this->blogFactory->create();
+        $blog = $this->postFactory->create();
         $this->resource->load($blog, $blogId);
         if (!$blog->getId()) {
             throw new NoSuchEntityException(__('The post with the "%1" ID doesn\'t exist.', $blogId));
@@ -164,14 +164,14 @@ class BlogRepository implements BlogRepositoryInterface
      * Retrieve blogs matching the specified criteria
      *
      * @param SearchCriteriaInterface $criteria
-     * @return Data\BlogSearchResultsInterface
+     * @return Data\PostSearchResultsInterface
      */
-    public function getList(SearchCriteriaInterface $criteria): Data\BlogSearchResultsInterface
+    public function getList(SearchCriteriaInterface $criteria): Data\PostSearchResultsInterface
     {
-        $collection = $this->blogCollectionFactory->create();
+        $collection = $this->postCollectionFactory->create();
         $this->collectionProcessor->process($criteria, $collection);
 
-        /** @var Data\BlogSearchResultsInterface $searchResults */
+        /** @var Data\PostSearchResultsInterface $searchResults */
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
         $searchResults->setItems($collection->getItems());

@@ -9,21 +9,21 @@ declare(strict_types=1);
 namespace Space\Blog\Api;
 
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Space\Blog\Api\Data\BlogSearchResultsInterface;
+use Space\Blog\Api\Data\PostSearchResultsInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Space\Blog\Api\Data\PostInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 
-interface BlogRepositoryInterface
+interface PostRepositoryInterface
 {
     /**
      * Retrieve blogs matching the specified criteria
      *
      * @param SearchCriteriaInterface $searchCriteria
-     * @return BlogSearchResultsInterface
+     * @return PostSearchResultsInterface
      * @throws LocalizedException
      */
-    public function getList(SearchCriteriaInterface $searchCriteria): BlogSearchResultsInterface;
+    public function getList(SearchCriteriaInterface $searchCriteria): PostSearchResultsInterface;
 
     /**
      * Retrieve blog

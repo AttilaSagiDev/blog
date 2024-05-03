@@ -10,16 +10,16 @@ namespace Space\Blog\Block;
 
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
-use Space\Blog\Model\ResourceModel\Blog\CollectionFactory;
+use Space\Blog\Model\ResourceModel\Post\CollectionFactory;
 use Magento\Framework\Api\SearchCriteriaBuilder;
-use Space\Blog\Api\BlogRepositoryInterface;
+use Space\Blog\Api\PostRepositoryInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Space\Blog\Api\Data\PostInterface;
-use Space\Blog\Model\ResourceModel\Blog\Collection;
+use Space\Blog\Model\ResourceModel\Post\Collection;
 use Magento\Theme\Block\Html\Pager;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Space\Blog\Api\Data\BlogSearchResultsInterface;
+use Space\Blog\Api\Data\PostSearchResultsInterface;
 
 class PostList extends Template
 {
@@ -39,9 +39,9 @@ class PostList extends Template
     private SearchCriteriaBuilder $searchCriteriaBuilder;
 
     /**
-     * @var BlogRepositoryInterface
+     * @var PostRepositoryInterface
      */
-    private BlogRepositoryInterface $blogRepository;
+    private PostRepositoryInterface $postRepository;
 
     /**
      * @var StoreManagerInterface
@@ -54,7 +54,7 @@ class PostList extends Template
      * @param Context $context
      * @param CollectionFactory $collectionFactory
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
-     * @param BlogRepositoryInterface $blogRepository
+     * @param PostRepositoryInterface $postRepository
      * @param StoreManagerInterface $storeManager
      * @param array $data
      */
@@ -62,13 +62,13 @@ class PostList extends Template
         Template\Context $context,
         CollectionFactory $collectionFactory,
         SearchCriteriaBuilder $searchCriteriaBuilder,
-        BlogRepositoryInterface $blogRepository,
+        PostRepositoryInterface $postRepository,
         StoreManagerInterface $storeManager,
         array $data = []
     ) {
         $this->collectionFactory = $collectionFactory;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->blogRepository = $blogRepository;
+        $this->postRepository = $postRepository;
         $this->storeManager = $storeManager;
         parent::__construct($context, $data);
     }
@@ -101,17 +101,17 @@ class PostList extends Template
      *
      * @param int $page
      * @param int $limit
-     * @return BlogSearchResultsInterface
+     * @return PostSearchResultsInterface
      * @throws LocalizedException
      */
-    public function getPostResults(int $page, int $limit): BlogSearchResultsInterface
+    public function getPostResults(int $page, int $limit): PostSearchResultsInterface
     {
         $this->searchCriteriaBuilder->addFilter(PostInterface::IS_ACTIVE, 1);
         $searchCriteria = $this->searchCriteriaBuilder->create();
         $searchCriteria->setCurrentPage($page)
             ->setPageSize($limit);
 
-        return $this->blogRepository->getList($searchCriteria);
+        return $this->postRepository->getList($searchCriteria);
     }
 
     /**

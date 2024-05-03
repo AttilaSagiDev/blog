@@ -10,9 +10,9 @@ namespace Space\Blog\Model\Api\SearchCriteria\CollectionProcessor\FilterProcesso
 use Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor\CustomFilterInterface;
 use Magento\Framework\Api\Filter;
 use Magento\Framework\Data\Collection\AbstractDb;
-use Space\Blog\Model\ResourceModel\Blog\Collection;
+use Space\Blog\Model\ResourceModel\Post\Collection;
 
-class BlogStoreFilter implements CustomFilterInterface
+class PostStoreFilter implements CustomFilterInterface
 {
     /**
      * Apply custom store filter to collection

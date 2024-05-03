@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Space\Blog\Model\ResourceModel\Blog;
+namespace Space\Blog\Model\ResourceModel\Post;
 
 use Magento\Framework\DB\Select;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
@@ -20,8 +20,8 @@ use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Space\Blog\Api\Data\PostInterface;
-use Space\Blog\Model\Blog;
-use Space\Blog\Model\ResourceModel\Blog as BlogResourceModel;
+use Space\Blog\Model\Post;
+use Space\Blog\Model\ResourceModel\Post as BlogResourceModel;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Exception;
 
@@ -101,7 +101,7 @@ class Collection extends AbstractCollection
      */
     protected function _construct(): void
     {
-        $this->_init(Blog::class, BlogResourceModel::class);
+        $this->_init(Post::class, BlogResourceModel::class);
         $this->_map['fields']['store'] = 'store_table.store_id';
         $this->_map['fields']['blog_id'] = 'main_table.blog_id';
     }

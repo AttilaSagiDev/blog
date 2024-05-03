@@ -15,13 +15,13 @@ use Magento\Framework\Model\Context;
 use Magento\Framework\Registry;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Data\Collection\AbstractDb;
-use Space\Blog\Model\ResourceModel\Blog as BlogResourceModel;
+use Space\Blog\Model\ResourceModel\Post as BlogResourceModel;
 
 /**
- * @method Blog setStoreId(int $storeId)
+ * @method Post setStoreId(int $storeId)
  * @method int getStoreId()
  */
-class Blog extends AbstractModel implements PostInterface, IdentityInterface
+class Post extends AbstractModel implements PostInterface, IdentityInterface
 {
     /**
      * Blog cache tag

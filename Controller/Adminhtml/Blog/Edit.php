@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -14,7 +15,7 @@ use Magento\Framework\Registry;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultInterface;
-use Space\Blog\Model\Blog;
+use Space\Blog\Model\Post;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Backend\Model\View\Result\Page;
 
@@ -60,7 +61,7 @@ class Edit extends Action implements HttpGetActionInterface
     public function execute(): Redirect|ResultInterface|ResponseInterface|Page
     {
         $id = $this->getRequest()->getParam('blog_id');
-        $blog = $this->_objectManager->create(Blog::class);
+        $blog = $this->_objectManager->create(Post::class);
 
         if ($id) {
             $blog->load($id);

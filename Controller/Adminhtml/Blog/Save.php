@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -11,12 +12,12 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Request\DataPersistorInterface;
-use Space\Blog\Model\BlogFactory;
+use Space\Blog\Model\PostFactory;
 use Space\Blog\Api\BlogRepositoryInterface;
 use Magento\Framework\App\ObjectManager;
 use Magento\Backend\Model\View\Result\Redirect;
 use Space\Blog\Model\Source\IsActive;
-use Space\Blog\Model\Blog;
+use Space\Blog\Model\Post;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\App\ResponseInterface;
@@ -34,9 +35,9 @@ class Save extends Action implements HttpPostActionInterface
     protected DataPersistorInterface $dataPersistor;
 
     /**
-     * @var BlogFactory
+     * @var PostFactory
      */
-    private BlogFactory $blogFactory;
+    private PostFactory $postFactory;
 
     /**
      * @var BlogRepositoryInterface
@@ -46,18 +47,18 @@ class Save extends Action implements HttpPostActionInterface
     /**
      * @param Context $context
      * @param DataPersistorInterface $dataPersistor
-     * @param BlogFactory|null $blogFactory
+     * @param PostFactory|null $postFactory
      * @param BlogRepositoryInterface|null $blogRepository
      */
     public function __construct(
         Context $context,
         DataPersistorInterface $dataPersistor,
-        BlogFactory $blogFactory = null,
+        PostFactory $postFactory = null,
         BlogRepositoryInterface $blogRepository = null
     ) {
         $this->dataPersistor = $dataPersistor;
-        $this->blogFactory = $blogFactory
-            ?: ObjectManager::getInstance()->get(BlogFactory::class);
+        $this->postFactory = $postFactory
+            ?: ObjectManager::getInstance()->get(PostFactory::class);
         $this->blogRepository = $blogRepository
             ?: ObjectManager::getInstance()->get(BlogRepositoryInterface::class);
         parent::__construct($context);
@@ -82,8 +83,8 @@ class Save extends Action implements HttpPostActionInterface
                 $data['blog_id'] = null;
             }
 
-            /** @var Blog $model */
-            $model = $this->blogFactory->create();
+            /** @var Post $model */
+            $model = $this->postFactory->create();
 
             $id = (int)$this->getRequest()->getParam('blog_id');
             if ($id) {
@@ -118,13 +119,13 @@ class Save extends Action implements HttpPostActionInterface
     /**
      * Process and set the post return
      *
-     * @param Blog $model
+     * @param Post $model
      * @param array $data
      * @param ResultInterface $resultRedirect
      * @return ResultInterface
      * @throws LocalizedException
      */
-    private function processBlogReturn(Blog $model, array $data, ResultInterface $resultRedirect): ResultInterface
+    private function processBlogReturn(Post $model, array $data, ResultInterface $resultRedirect): ResultInterface
     {
         $redirect = $data['back'] ?? 'close';
 
@@ -133,7 +134,7 @@ class Save extends Action implements HttpPostActionInterface
         } elseif ($redirect === 'close') {
             $resultRedirect->setPath('*/*/');
         } elseif ($redirect === 'duplicate') {
-            $duplicateModel = $this->blogFactory->create(['data' => $data]);
+            $duplicateModel = $this->postFactory->create(['data' => $data]);
             $duplicateModel->setId(null);
             $duplicateModel->setIsActive(IsActive::STATUS_DISABLED);
             $this->blogRepository->save($duplicateModel);

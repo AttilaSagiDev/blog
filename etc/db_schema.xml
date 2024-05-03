@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="space_blog" resource="default" engine="innodb" comment="Space Blog Table">
+        <column xsi:type="smallint" name="blog_id" unsigned="false" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="title" nullable="true" length="255" comment="Blog Title"/>
+        <column xsi:type="mediumtext" name="content" nullable="true" comment="Blog Content"/>
+        <column xsi:type="varchar" name="author" nullable="true" length="255" comment="Blog Author"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Blog Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Blog Modification Time"/>
+        <column xsi:type="smallint" name="is_active" unsigned="false" nullable="false" identity="false"
+                default="1" comment="Is Blog Active"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="blog_id"/>
+        </constraint>
+        <index referenceId="SPACE_BLOG_TITLE_CONTENT_AUTHOR" indexType="fulltext">
+            <column name="title"/>
+            <column name="content"/>
+            <column name="author"/>
+        </index>
+    </table>
+    <table name="space_blog_store" resource="default" engine="innodb" comment="Space Blog To Store Linkage Table">
+        <column xsi:type="smallint" name="blog_id" unsigned="false" nullable="false" identity="false"
+                comment="Entity ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" identity="false"
+                comment="Store ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="blog_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="SPACE_BLOG_STORE_BLOG_ID_SPACE_BLOG_BLOG_ID"
+                    table="space_blog_store"
+                    column="blog_id" referenceTable="space_blog" referenceColumn="blog_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="SPACE_BLOG_STORE_STORE_ID_STORE_STORE_ID" table="space_blog_store"
+                    column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <index referenceId="SPACE_BLOG_STORE_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+    </table>
+</schema>

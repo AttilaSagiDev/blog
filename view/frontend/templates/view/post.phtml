@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ */
+
+/**
+ * @var $block \Space\Blog\Block\View\Post
+ * @var $escaper Magento\Framework\Escaper;
+ */
+?>
+<?php $post = $block->getPost(); ?>
+<?php if (null !== $post && $post->getId()): ?>
+    <div class="space-blog">
+        <h2><?= $escaper->escapeHtml($post->getTitle()) ?></h2>
+        <span><?= $escaper->escapeHtml(__('Date: %1', $post->getUpdateTime())) ?></span>,
+        <span><?= $escaper->escapeHtml(__('by: %1', $post->getAuthor())) ?></span>
+        <p style="margin-top: 10px">
+            <?= $escaper->escapeHtml($post->getContent()); ?>
+        </p>
+        <a href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>"
+           title="<?= $escaper->escapeHtml(__('Back')) ?>">
+            <span><?= $escaper->escapeHtml(__('Back')) ?></span>
+        </a>
+    </div>
+<?php else: ?>
+    <p class="error"><?= $escaper->escapeHtml(__('Post not found.')) ?></p>
+<?php endif; ?>

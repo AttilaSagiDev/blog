@@ -1,0 +1,41 @@
+<?php
+/**
+ * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ */
+
+/**
+ * @var $block \Space\Blog\Block\PostList
+ * @var $escaper Magento\Framework\Escaper;
+ */
+?>
+
+<div class="space-blog">
+    <?php $posts = $block->getPosts(); ?>
+    <?php if ($posts->getSize()): ?>
+        <?php /** @var $post \Space\Blog\Model\Blog */ ?>
+        <?php foreach ($posts as $post): ?>
+            <article>
+                <h2>
+                    <a href="<?= $escaper->escapeUrl($block->getViewUrl($post->getId())) ?>"
+                       title="<?= $escaper->escapeHtml($post->getTitle()) ?>">
+                        <?= $escaper->escapeHtml($post->getTitle()) ?>
+                    </a>
+                </h2>
+                <span><?= $escaper->escapeHtml(__('Date: %1', $post->getUpdateTime())) ?></span>,
+                <span><?= $escaper->escapeHtml(__('by: %1', $post->getAuthor())) ?></span>
+                <p style="margin-top: 10px">
+                    <?= $escaper->escapeHtml($block->truncateString($post->getContent(), 80, '...', false)); ?>
+                </p>
+                <a href="<?= $escaper->escapeUrl($block->getViewUrl($post->getId())) ?>"
+                   title="<?= $escaper->escapeHtml($post->getTitle()) ?>">
+                    <span><?= $escaper->escapeHtml(__('More')); ?></span>
+                </a>
+            </article>
+        <?php endforeach; ?>
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="toolbar bottom" style="margin-top: 15px;"><?= $block->getPagerHtml() ?></div>
+        <?php endif ?>
+    <?php else: ?>
+        <p><?= $escaper->escapeHtml(__('There are no posts.')) ?></p>
+    <?php endif; ?>
+</div>

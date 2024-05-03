@@ -1,0 +1,33 @@
+{
+    "space_blog": {
+        "column": {
+            "blog_id": true,
+            "title": true,
+            "content": true,
+            "author": true,
+            "creation_time": true,
+            "update_time": true,
+            "is_active": true
+        },
+        "index": {
+            "SPACE_BLOG_TITLE_CONTENT_AUTHOR": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "space_blog_store": {
+        "column": {
+            "blog_id": true,
+            "store_id": true
+        },
+        "index": {
+            "SPACE_BLOG_STORE_STORE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SPACE_BLOG_STORE_BLOG_ID_SPACE_BLOG_BLOG_ID": true,
+            "SPACE_BLOG_STORE_STORE_ID_STORE_STORE_ID": true
+        }
+    }
+}

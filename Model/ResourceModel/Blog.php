@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -13,7 +14,7 @@ use Magento\Framework\EntityManager\EntityManager;
 use Magento\Framework\EntityManager\MetadataPool;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\Model\ResourceModel\Db\Context;
-use Space\Blog\Api\Data\BlogInterface;
+use Space\Blog\Api\Data\PostInterface;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\DB\Select;
 use Space\Blog\Model\Blog as BlogModel;
@@ -67,7 +68,7 @@ class Blog extends AbstractDb
      */
     protected function _construct(): void
     {
-        $this->_init('space_blog', BlogInterface::BLOG_ID);
+        $this->_init('space_blog', PostInterface::BLOG_ID);
     }
 
     /**
@@ -77,7 +78,7 @@ class Blog extends AbstractDb
      */
     public function getConnection(): AdapterInterface|bool
     {
-        return $this->metadataPool->getMetadata(BlogInterface::class)->getEntityConnection();
+        return $this->metadataPool->getMetadata(PostInterface::class)->getEntityConnection();
     }
 
     /**
@@ -139,7 +140,7 @@ class Blog extends AbstractDb
      */
     private function getBlogId(AbstractModel $object, mixed $value, string $field = null): bool|int|string
     {
-        $entityMetadata = $this->metadataPool->getMetadata(BlogInterface::class);
+        $entityMetadata = $this->metadataPool->getMetadata(PostInterface::class);
         if (!$field) {
             $field = $entityMetadata->getIdentifierField();
         }
@@ -167,7 +168,7 @@ class Blog extends AbstractDb
      */
     protected function _getLoadSelect($field, $value, $object): Select
     {
-        $entityMetadata = $this->metadataPool->getMetadata(BlogInterface::class);
+        $entityMetadata = $this->metadataPool->getMetadata(PostInterface::class);
         $linkField = $entityMetadata->getLinkField();
 
         $select = parent::_getLoadSelect($field, $value, $object);
@@ -201,7 +202,7 @@ class Blog extends AbstractDb
     {
         $connection = $this->getConnection();
 
-        $entityMetadata = $this->metadataPool->getMetadata(BlogInterface::class);
+        $entityMetadata = $this->metadataPool->getMetadata(PostInterface::class);
         $linkField = $entityMetadata->getLinkField();
 
         $select = $connection->select()

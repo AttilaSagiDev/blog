@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -10,7 +11,7 @@ namespace Space\Blog\Api;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Space\Blog\Api\Data\BlogSearchResultsInterface;
 use Magento\Framework\Exception\LocalizedException;
-use Space\Blog\Api\Data\BlogInterface;
+use Space\Blog\Api\Data\PostInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 
 interface BlogRepositoryInterface
@@ -28,19 +29,19 @@ interface BlogRepositoryInterface
      * Retrieve blog
      *
      * @param int $blogId
-     * @return BlogInterface
+     * @return PostInterface
      * @throws LocalizedException
      */
-    public function getById(int $blogId): BlogInterface;
+    public function getById(int $blogId): PostInterface;
 
     /**
      * Save blog
      *
-     * @param BlogInterface $blog
-     * @return BlogInterface
+     * @param PostInterface $blog
+     * @return PostInterface
      * @throws LocalizedException
      */
-    public function save(BlogInterface $blog): BlogInterface;
+    public function save(PostInterface $blog): PostInterface;
 
     /**
      * Delete blog by ID
@@ -55,9 +56,9 @@ interface BlogRepositoryInterface
     /**
      * Delete blog
      *
-     * @param BlogInterface $blog
+     * @param PostInterface $blog
      * @return bool
      * @throws LocalizedException
      */
-    public function delete(BlogInterface $blog): bool;
+    public function delete(PostInterface $blog): bool;
 }

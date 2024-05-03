@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Space\Blog\Api\Data\BlogSearchResultsInterface"
                 type="Space\Blog\Model\BlogSearchResults"/>
-    <preference for="Space\Blog\Api\Data\BlogInterface" type="Space\Blog\Model\Blog"/>
+    <preference for="Space\Blog\Api\Data\PostInterface" type="Space\Blog\Model\Blog"/>
     <preference for="Space\Blog\Api\BlogRepositoryInterface" type="Space\Blog\Model\BlogRepository"/>
     <preference for="Space\Blog\Api\Data\ConfigInterface" type="Space\Blog\Model\Config"/>
 
@@ -34,7 +35,7 @@
     <type name="Magento\Framework\Model\Entity\RepositoryFactory">
         <arguments>
             <argument name="entities" xsi:type="array">
-                <item name="Space\Blog\Api\Data\BlogInterface" xsi:type="string">
+                <item name="Space\Blog\Api\Data\PostInterface" xsi:type="string">
                     Space\Blog\Api\BlogRepositoryInterface
                 </item>
             </argument>
@@ -44,7 +45,7 @@
     <type name="Magento\Framework\EntityManager\MetadataPool">
         <arguments>
             <argument name="metadata" xsi:type="array">
-                <item name="Space\Blog\Api\Data\BlogInterface" xsi:type="array">
+                <item name="Space\Blog\Api\Data\PostInterface" xsi:type="array">
                     <item name="entityTableName" xsi:type="string">space_blog</item>
                     <item name="identifierField" xsi:type="string">blog_id</item>
                 </item>
@@ -54,7 +55,7 @@
     <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
         <arguments>
             <argument name="extensionActions" xsi:type="array">
-                <item name="Space\Blog\Api\Data\BlogInterface" xsi:type="array">
+                <item name="Space\Blog\Api\Data\PostInterface" xsi:type="array">
                     <item name="read" xsi:type="array">
                         <item name="storeReader" xsi:type="string">
                             Space\Blog\Model\ResourceModel\Blog\Stores\ReadHandler
@@ -78,7 +79,7 @@
     <type name="Magento\Framework\EntityManager\HydratorPool">
         <arguments>
             <argument name="hydrators" xsi:type="array">
-                <item name="Space\Blog\Api\Data\BlogInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+                <item name="Space\Blog\Api\Data\PostInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
             </argument>
         </arguments>
     </type>

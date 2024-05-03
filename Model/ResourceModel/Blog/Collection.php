@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -18,7 +19,7 @@ use Magento\Framework\Data\Collection\Db\FetchStrategyInterface;
 use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-use Space\Blog\Api\Data\BlogInterface;
+use Space\Blog\Api\Data\PostInterface;
 use Space\Blog\Model\Blog;
 use Space\Blog\Model\ResourceModel\Blog as BlogResourceModel;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -86,7 +87,7 @@ class Collection extends AbstractCollection
      */
     protected function _afterLoad(): static
     {
-        $entityMetadata = $this->metadataPool->getMetadata(BlogInterface::class);
+        $entityMetadata = $this->metadataPool->getMetadata(PostInterface::class);
 
         $this->performAfterLoad('space_blog_store', $entityMetadata->getLinkField());
 
@@ -242,7 +243,7 @@ class Collection extends AbstractCollection
      */
     protected function _renderFiltersBefore(): void
     {
-        $entityMetadata = $this->metadataPool->getMetadata(BlogInterface::class);
+        $entityMetadata = $this->metadataPool->getMetadata(PostInterface::class);
         $this->joinStoreRelationTable('space_blog_store', $entityMetadata->getLinkField());
     }
 

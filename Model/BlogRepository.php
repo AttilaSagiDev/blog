@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -9,12 +10,12 @@ namespace Space\Blog\Model;
 
 use Space\Blog\Api\BlogRepositoryInterface;
 use Space\Blog\Api\Data;
-use Space\Blog\Api\Data\BlogInterface;
+use Space\Blog\Api\Data\PostInterface;
 use Space\Blog\Model\ResourceModel\Blog as ResourceBlog;
 use Space\Blog\Model\ResourceModel\Blog\CollectionFactory as BlogCollectionFactory;
 use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Reflection\DataObjectProcessor;
-use Space\Blog\Api\Data\BlogInterfaceFactory;
+use Space\Blog\Api\Data\PostInterfaceFactory;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\EntityManager\HydratorInterface;
@@ -58,9 +59,9 @@ class BlogRepository implements BlogRepositoryInterface
     protected DataObjectProcessor $dataObjectProcessor;
 
     /**
-     * @var BlogInterfaceFactory
+     * @var PostInterfaceFactory
      */
-    protected BlogInterfaceFactory $dataBlogFactory;
+    protected PostInterfaceFactory $dataPostFactory;
 
     /**
      * @var StoreManagerInterface
@@ -80,7 +81,7 @@ class BlogRepository implements BlogRepositoryInterface
     /**
      * @param ResourceBlog $resource
      * @param BlogFactory $blogFactory
-     * @param BlogInterfaceFactory $dataBlogFactory
+     * @param PostInterfaceFactory $dataPostFactory
      * @param BlogCollectionFactory $blogCollectionFactory
      * @param Data\BlogSearchResultsInterfaceFactory $searchResultsFactory
      * @param DataObjectHelper $dataObjectHelper
@@ -92,7 +93,7 @@ class BlogRepository implements BlogRepositoryInterface
     public function __construct(
         ResourceBlog $resource,
         BlogFactory $blogFactory,
-        BlogInterfaceFactory $dataBlogFactory,
+        PostInterfaceFactory $dataPostFactory,
         BlogCollectionFactory $blogCollectionFactory,
         Data\BlogSearchResultsInterfaceFactory $searchResultsFactory,
         DataObjectHelper $dataObjectHelper,
@@ -106,7 +107,7 @@ class BlogRepository implements BlogRepositoryInterface
         $this->blogCollectionFactory = $blogCollectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
         $this->dataObjectHelper = $dataObjectHelper;
-        $this->dataBlogFactory = $dataBlogFactory;
+        $this->dataPostFactory = $dataPostFactory;
         $this->dataObjectProcessor = $dataObjectProcessor;
         $this->storeManager = $storeManager;
         $this->collectionProcessor = $collectionProcessor ?:
@@ -117,12 +118,12 @@ class BlogRepository implements BlogRepositoryInterface
     /**
      * Save
      *
-     * @param BlogInterface $blog
-     * @return BlogInterface
+     * @param PostInterface $blog
+     * @return PostInterface
      * @throws CouldNotSaveException
      * @throws NoSuchEntityException|LocalizedException
      */
-    public function save(BlogInterface $blog): BlogInterface
+    public function save(PostInterface $blog): PostInterface
     {
         if (empty($blog->getStoreId())) {
             $blog->setStoreId($this->storeManager->getStore()->getId());
@@ -145,10 +146,10 @@ class BlogRepository implements BlogRepositoryInterface
      * Retrieve blog
      *
      * @param int $blogId
-     * @return BlogInterface
+     * @return PostInterface
      * @throws NoSuchEntityException|LocalizedException
      */
-    public function getById(int $blogId): BlogInterface
+    public function getById(int $blogId): PostInterface
     {
         $blog = $this->blogFactory->create();
         $this->resource->load($blog, $blogId);
@@ -182,11 +183,11 @@ class BlogRepository implements BlogRepositoryInterface
     /**
      * Delete blog
      *
-     * @param BlogInterface $blog
+     * @param PostInterface $blog
      * @return bool
      * @throws CouldNotDeleteException
      */
-    public function delete(BlogInterface $blog): bool
+    public function delete(PostInterface $blog): bool
     {
         try {
             $this->resource->delete($blog);

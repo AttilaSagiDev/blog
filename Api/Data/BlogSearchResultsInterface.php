@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -14,14 +15,14 @@ interface BlogSearchResultsInterface extends SearchResultsInterface
     /**
      * Get blog items
      *
-     * @return BlogInterface[]
+     * @return PostInterface[]
      */
     public function getItems();
 
     /**
      * Set blog items
      *
-     * @param BlogInterface[] $items
+     * @param PostInterface[] $items
      * @return $this
      */
     public function setItems(array $items);

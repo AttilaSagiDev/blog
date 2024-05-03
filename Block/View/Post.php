@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -10,7 +11,7 @@ namespace Space\Blog\Block\View;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\View\Element\Template;
 use Space\Blog\Api\BlogRepositoryInterface;
-use Space\Blog\Api\Data\BlogInterface;
+use Space\Blog\Api\Data\PostInterface;
 
 class Post extends Template
 {
@@ -38,7 +39,7 @@ class Post extends Template
     /**
      * Get post
      *
-     * @return BlogInterface|void
+     * @return PostInterface|void
      * @throws LocalizedException
      */
     public function getPost()
@@ -66,6 +67,6 @@ class Post extends Template
      */
     private function getPostId(): int
     {
-        return (int)$this->getData(BlogInterface::BLOG_ID);
+        return (int)$this->getData(PostInterface::BLOG_ID);
     }
 }

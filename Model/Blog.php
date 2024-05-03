@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -8,7 +9,7 @@ declare(strict_types=1);
 namespace Space\Blog\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use Space\Blog\Api\Data\BlogInterface;
+use Space\Blog\Api\Data\PostInterface;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Registry;
@@ -20,7 +21,7 @@ use Space\Blog\Model\ResourceModel\Blog as BlogResourceModel;
  * @method Blog setStoreId(int $storeId)
  * @method int getStoreId()
  */
-class Blog extends AbstractModel implements BlogInterface, IdentityInterface
+class Blog extends AbstractModel implements PostInterface, IdentityInterface
 {
     /**
      * Blog cache tag
@@ -152,9 +153,9 @@ class Blog extends AbstractModel implements BlogInterface, IdentityInterface
      * Set ID
      *
      * @param int $id
-     * @return BlogInterface
+     * @return PostInterface
      */
-    public function setId($id): BlogInterface
+    public function setId($id): PostInterface
     {
         return $this->setData(self::BLOG_ID, $id);
     }
@@ -163,9 +164,9 @@ class Blog extends AbstractModel implements BlogInterface, IdentityInterface
      * Set title
      *
      * @param string $title
-     * @return BlogInterface
+     * @return PostInterface
      */
-    public function setTitle(string $title): BlogInterface
+    public function setTitle(string $title): PostInterface
     {
         return $this->setData(self::TITLE, $title);
     }
@@ -174,9 +175,9 @@ class Blog extends AbstractModel implements BlogInterface, IdentityInterface
      * Set content
      *
      * @param string $content
-     * @return BlogInterface
+     * @return PostInterface
      */
-    public function setContent(string $content): BlogInterface
+    public function setContent(string $content): PostInterface
     {
         return $this->setData(self::CONTENT, $content);
     }
@@ -185,9 +186,9 @@ class Blog extends AbstractModel implements BlogInterface, IdentityInterface
      * Set author
      *
      * @param string $author
-     * @return BlogInterface
+     * @return PostInterface
      */
-    public function setAuthor(string $author): BlogInterface
+    public function setAuthor(string $author): PostInterface
     {
         return $this->setData(self::AUTHOR, $author);
     }
@@ -196,9 +197,9 @@ class Blog extends AbstractModel implements BlogInterface, IdentityInterface
      * Set creation time
      *
      * @param string $creationTime
-     * @return BlogInterface
+     * @return PostInterface
      */
-    public function setCreationTime(string $creationTime): BlogInterface
+    public function setCreationTime(string $creationTime): PostInterface
     {
         return $this->setData(self::CREATION_TIME, $creationTime);
     }
@@ -207,9 +208,9 @@ class Blog extends AbstractModel implements BlogInterface, IdentityInterface
      * Set update time
      *
      * @param string $updateTime
-     * @return BlogInterface
+     * @return PostInterface
      */
-    public function setUpdateTime(string $updateTime): BlogInterface
+    public function setUpdateTime(string $updateTime): PostInterface
     {
         return $this->setData(self::UPDATE_TIME, $updateTime);
     }
@@ -218,9 +219,9 @@ class Blog extends AbstractModel implements BlogInterface, IdentityInterface
      * Set is active
      *
      * @param bool|int $isActive
-     * @return BlogInterface
+     * @return PostInterface
      */
-    public function setIsActive(bool|int $isActive): BlogInterface
+    public function setIsActive(bool|int $isActive): PostInterface
     {
         return $this->setData(self::IS_ACTIVE, $isActive);
     }

@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -13,7 +14,7 @@ use Space\Blog\Model\ResourceModel\Blog\CollectionFactory;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Space\Blog\Api\BlogRepositoryInterface;
 use Magento\Store\Model\StoreManagerInterface;
-use Space\Blog\Api\Data\BlogInterface;
+use Space\Blog\Api\Data\PostInterface;
 use Space\Blog\Model\ResourceModel\Blog\Collection;
 use Magento\Theme\Block\Html\Pager;
 use Magento\Framework\Exception\LocalizedException;
@@ -86,10 +87,10 @@ class PostList extends Template
         $storeId = $this->storeManager->getStore()->getId();
         $collection = $this->collectionFactory->create();
         $collection->addStoreFilter((int)$storeId)
-            ->addFieldToFilter(BlogInterface::IS_ACTIVE, ['eq' => 1])
+            ->addFieldToFilter(PostInterface::IS_ACTIVE, ['eq' => 1])
             ->setPageSize($limit)
             ->setCurPage($page)
-            ->setOrder(BlogInterface::BLOG_ID, 'DESC');
+            ->setOrder(PostInterface::BLOG_ID, 'DESC');
 
         return $collection;
     }
@@ -105,7 +106,7 @@ class PostList extends Template
      */
     public function getPostResults(int $page, int $limit): BlogSearchResultsInterface
     {
-        $this->searchCriteriaBuilder->addFilter(BlogInterface::IS_ACTIVE, 1);
+        $this->searchCriteriaBuilder->addFilter(PostInterface::IS_ACTIVE, 1);
         $searchCriteria = $this->searchCriteriaBuilder->create();
         $searchCriteria->setCurrentPage($page)
             ->setPageSize($limit);

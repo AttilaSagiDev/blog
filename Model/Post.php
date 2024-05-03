@@ -15,7 +15,7 @@ use Magento\Framework\Model\Context;
 use Magento\Framework\Registry;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Data\Collection\AbstractDb;
-use Space\Blog\Model\ResourceModel\Post as BlogResourceModel;
+use Space\Blog\Model\ResourceModel\Post as PostResourceModel;
 
 /**
  * @method Post setStoreId(int $storeId)
@@ -24,7 +24,7 @@ use Space\Blog\Model\ResourceModel\Post as BlogResourceModel;
 class Post extends AbstractModel implements PostInterface, IdentityInterface
 {
     /**
-     * Blog cache tag
+     * Post cache tag
      */
     public const CACHE_TAG = 'space_blog';
 
@@ -66,7 +66,7 @@ class Post extends AbstractModel implements PostInterface, IdentityInterface
      */
     protected function _construct(): void
     {
-        $this->_init(BlogResourceModel::class);
+        $this->_init(PostResourceModel::class);
     }
 
     /**
@@ -227,7 +227,7 @@ class Post extends AbstractModel implements PostInterface, IdentityInterface
     }
 
     /**
-     * Receive blog store ids
+     * Receive post store ids
      *
      * @return int[]
      */

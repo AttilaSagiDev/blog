@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -9,7 +10,7 @@ namespace Space\Blog\Controller\Adminhtml\Blog;
 
 use Magento\Backend\App\Action;
 use Magento\Framework\App\Action\HttpPostActionInterface;
-use Space\Blog\Model\BlogRepository;
+use Space\Blog\Model\PostRepository;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\Result\Redirect;
@@ -24,21 +25,21 @@ class Delete extends Action implements HttpPostActionInterface
     public const ADMIN_RESOURCE = 'Space_Blog::blog';
 
     /**
-     * @var BlogRepository
+     * @var PostRepository
      */
-    private BlogRepository $blogRepository;
+    private PostRepository $postRepository;
 
     /**
      * Constructor
      *
      * @param Context $context
-     * @param BlogRepository $blogRepository
+     * @param PostRepository $postRepository
      */
     public function __construct(
         Context $context,
-        BlogRepository $blogRepository
+        PostRepository $postRepository
     ) {
-        $this->blogRepository = $blogRepository;
+        $this->postRepository = $postRepository;
         parent::__construct($context);
     }
 
@@ -53,9 +54,9 @@ class Delete extends Action implements HttpPostActionInterface
         $id = (int)$this->getRequest()->getParam('blog_id');
         if ($id) {
             try {
-                $blog = $this->blogRepository->getById($id);
+                $blog = $this->postRepository->getById($id);
                 if ($blog->getId()) {
-                    $this->blogRepository->deleteById($blog->getId());
+                    $this->postRepository->deleteById($blog->getId());
                 }
                 $this->messageManager->addSuccessMessage(__('You deleted the post.'));
                 return $resultRedirect->setPath('*/*/');

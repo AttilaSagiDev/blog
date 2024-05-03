@@ -26,39 +26,39 @@ interface PostRepositoryInterface
     public function getList(SearchCriteriaInterface $searchCriteria): PostSearchResultsInterface;
 
     /**
-     * Retrieve blog
+     * Retrieve post
      *
-     * @param int $blogId
+     * @param int $postId
      * @return PostInterface
      * @throws LocalizedException
      */
-    public function getById(int $blogId): PostInterface;
+    public function getById(int $postId): PostInterface;
 
     /**
-     * Save blog
+     * Save post
      *
-     * @param PostInterface $blog
+     * @param PostInterface $post
      * @return PostInterface
      * @throws LocalizedException
      */
-    public function save(PostInterface $blog): PostInterface;
+    public function save(PostInterface $post): PostInterface;
 
     /**
-     * Delete blog by ID
+     * Delete post by ID
      *
-     * @param int $blogId
+     * @param int $postId
      * @return bool
      * @throws NoSuchEntityException
      * @throws LocalizedException
      */
-    public function deleteById(int $blogId): bool;
+    public function deleteById(int $postId): bool;
 
     /**
-     * Delete blog
+     * Delete post
      *
-     * @param PostInterface $blog
+     * @param PostInterface $post
      * @return bool
      * @throws LocalizedException
      */
-    public function delete(PostInterface $blog): bool;
+    public function delete(PostInterface $post): bool;
 }

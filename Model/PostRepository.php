@@ -11,7 +11,7 @@ namespace Space\Blog\Model;
 use Space\Blog\Api\PostRepositoryInterface;
 use Space\Blog\Api\Data;
 use Space\Blog\Api\Data\PostInterface;
-use Space\Blog\Model\ResourceModel\Post as ResourceBlog;
+use Space\Blog\Model\ResourceModel\Post as ResourcePost;
 use Space\Blog\Model\ResourceModel\Post\CollectionFactory as PostCollectionFactory;
 use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Reflection\DataObjectProcessor;
@@ -29,9 +29,9 @@ use Magento\Framework\Exception\LocalizedException;
 class PostRepository implements PostRepositoryInterface
 {
     /**
-     * @var ResourceBlog
+     * @var ResourcePost
      */
-    protected ResourceBlog $resource;
+    protected ResourcePost $resource;
 
     /**
      * @var PostFactory
@@ -79,7 +79,7 @@ class PostRepository implements PostRepositoryInterface
     private HydratorInterface $hydrator;
 
     /**
-     * @param ResourceBlog $resource
+     * @param ResourcePost $resource
      * @param PostFactory $postFactory
      * @param PostInterfaceFactory $dataPostFactory
      * @param PostCollectionFactory $postCollectionFactory
@@ -91,7 +91,7 @@ class PostRepository implements PostRepositoryInterface
      * @param HydratorInterface|null $hydrator
      */
     public function __construct(
-        ResourceBlog $resource,
+        ResourcePost $resource,
         PostFactory $postFactory,
         PostInterfaceFactory $dataPostFactory,
         PostCollectionFactory $postCollectionFactory,
@@ -118,50 +118,50 @@ class PostRepository implements PostRepositoryInterface
     /**
      * Save
      *
-     * @param PostInterface $blog
+     * @param PostInterface $post
      * @return PostInterface
      * @throws CouldNotSaveException
      * @throws NoSuchEntityException|LocalizedException
      */
-    public function save(PostInterface $blog): PostInterface
+    public function save(PostInterface $post): PostInterface
     {
-        if (empty($blog->getStoreId())) {
-            $blog->setStoreId($this->storeManager->getStore()->getId());
+        if (empty($post->getStoreId())) {
+            $post->setStoreId($this->storeManager->getStore()->getId());
         }
 
-        if ($blog->getId() && $blog instanceof Post && !$blog->getOrigData()) {
-            $blog = $this->hydrator->hydrate($this->getById($blog->getId()), $this->hydrator->extract($blog));
+        if ($post->getId() && $post instanceof Post && !$post->getOrigData()) {
+            $post = $this->hydrator->hydrate($this->getById($post->getId()), $this->hydrator->extract($post));
         }
 
         try {
-            $this->resource->save($blog);
+            $this->resource->save($post);
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(__($exception->getMessage()));
         }
 
-        return $blog;
+        return $post;
     }
 
     /**
-     * Retrieve blog
+     * Retrieve post
      *
-     * @param int $blogId
+     * @param int $postId
      * @return PostInterface
      * @throws NoSuchEntityException|LocalizedException
      */
-    public function getById(int $blogId): PostInterface
+    public function getById(int $postId): PostInterface
     {
-        $blog = $this->postFactory->create();
-        $this->resource->load($blog, $blogId);
-        if (!$blog->getId()) {
-            throw new NoSuchEntityException(__('The post with the "%1" ID doesn\'t exist.', $blogId));
+        $post = $this->postFactory->create();
+        $this->resource->load($post, $postId);
+        if (!$post->getId()) {
+            throw new NoSuchEntityException(__('The post with the "%1" ID doesn\'t exist.', $postId));
         }
 
-        return $blog;
+        return $post;
     }
 
     /**
-     * Retrieve blogs matching the specified criteria
+     * Retrieve posts matching the specified criteria
      *
      * @param SearchCriteriaInterface $criteria
      * @return Data\PostSearchResultsInterface
@@ -181,16 +181,16 @@ class PostRepository implements PostRepositoryInterface
     }
 
     /**
-     * Delete blog
+     * Delete post
      *
-     * @param PostInterface $blog
+     * @param PostInterface $post
      * @return bool
      * @throws CouldNotDeleteException
      */
-    public function delete(PostInterface $blog): bool
+    public function delete(PostInterface $post): bool
     {
         try {
-            $this->resource->delete($blog);
+            $this->resource->delete($post);
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(__($exception->getMessage()));
         }
@@ -201,13 +201,13 @@ class PostRepository implements PostRepositoryInterface
     /**
      * Delete by ID
      *
-     * @param int $blogId
+     * @param int $postId
      * @return bool
      * @throws NoSuchEntityException
      * @throws LocalizedException
      */
-    public function deleteById(int $blogId): bool
+    public function deleteById(int $postId): bool
     {
-        return $this->delete($this->getById($blogId));
+        return $this->delete($this->getById($postId));
     }
 }

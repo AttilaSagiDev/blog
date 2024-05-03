@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -12,7 +13,7 @@ use Magento\Framework\Data\OptionSourceInterface;
 class IsActive implements OptionSourceInterface
 {
     /**
-     * Blog's statuses
+     * Post's statuses
      */
     public const STATUS_ENABLED = 1;
     public const STATUS_DISABLED = 0;

@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Space\Blog\Api\Data\BlogSearchResultsInterface"
+                type="Space\Blog\Model\BlogSearchResults"/>
+    <preference for="Space\Blog\Api\Data\BlogInterface" type="Space\Blog\Model\Blog"/>
+    <preference for="Space\Blog\Api\BlogRepositoryInterface" type="Space\Blog\Model\BlogRepository"/>
+    <preference for="Space\Blog\Api\Data\ConfigInterface" type="Space\Blog\Model\Config"/>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="space_blog_listing_data_source" xsi:type="string">
+                    Space\Blog\Model\ResourceModel\Blog\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Space\Blog\Model\ResourceModel\Blog\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">space_blog</argument>
+            <argument name="eventPrefix" xsi:type="string">space_blog_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">blog_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Space\Blog\Model\ResourceModel\Blog</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="Space\Blog\Api\Data\BlogInterface" xsi:type="string">
+                    Space\Blog\Api\BlogRepositoryInterface
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Space\Blog\Api\Data\BlogInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">space_blog</item>
+                    <item name="identifierField" xsi:type="string">blog_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="Space\Blog\Api\Data\BlogInterface" xsi:type="array">
+                    <item name="read" xsi:type="array">
+                        <item name="storeReader" xsi:type="string">
+                            Space\Blog\Model\ResourceModel\Blog\Stores\ReadHandler
+                        </item>
+                    </item>
+                    <item name="create" xsi:type="array">
+                        <item name="storeCreator" xsi:type="string">
+                            Space\Blog\Model\ResourceModel\Blog\Stores\SaveHandler
+                        </item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="storeUpdater" xsi:type="string">
+                            Space\Blog\Model\ResourceModel\Blog\Stores\SaveHandler
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Space\Blog\Api\Data\BlogInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Space\Blog\Model\Api\SearchCriteria\CollectionProcessor\BlogFilterProcessor"
+                 type="Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor">
+        <arguments>
+            <argument name="customFilters" xsi:type="array">
+                <item name="store_id" xsi:type="object">
+                    Space\Blog\Model\Api\SearchCriteria\CollectionProcessor\FilterProcessor\BlogStoreFilter
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Space\Blog\Model\Api\SearchCriteria\BlogCollectionProcessor"
+                 type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">
+                    Space\Blog\Model\Api\SearchCriteria\CollectionProcessor\BlogFilterProcessor
+                </item>
+                <item name="sorting" xsi:type="object">
+                    Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor
+                </item>
+                <item name="pagination" xsi:type="object">
+                    Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Space\Blog\Model\BlogRepository">
+        <arguments>
+            <argument name="collectionProcessor"
+                      xsi:type="object">Space\Blog\Model\Api\SearchCriteria\BlogCollectionProcessor
+            </argument>
+            <argument name="hydrator" xsi:type="object">Magento\Framework\EntityManager\AbstractModelHydrator</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="space_blog_generate_command" xsi:type="object">Space\Blog\Console\Command\Generate</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

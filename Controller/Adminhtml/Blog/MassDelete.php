@@ -63,8 +63,8 @@ class MassDelete extends Action implements HttpPostActionInterface
         $collection = $this->filter->getCollection($this->collectionFactory->create());
         $collectionSize = $collection->getSize();
 
-        foreach ($collection as $blog) {
-            $blog->delete();
+        foreach ($collection as $post) {
+            $post->delete();
         }
 
         $this->messageManager->addSuccessMessage(__('A total of %1 record(s) have been deleted.', $collectionSize));

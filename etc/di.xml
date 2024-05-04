@@ -47,7 +47,7 @@
             <argument name="metadata" xsi:type="array">
                 <item name="Space\Blog\Api\Data\PostInterface" xsi:type="array">
                     <item name="entityTableName" xsi:type="string">space_blog</item>
-                    <item name="identifierField" xsi:type="string">blog_id</item>
+                    <item name="identifierField" xsi:type="string">post_id</item>
                 </item>
             </argument>
         </arguments>

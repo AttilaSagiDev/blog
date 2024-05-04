@@ -45,11 +45,11 @@ class GenericButton
      * @return int|null
      * @throws LocalizedException
      */
-    public function getBlogId(): ?int
+    public function getPostId(): ?int
     {
         try {
             return $this->postRepository->getById(
-                (int)$this->context->getRequest()->getParam('blog_id')
+                (int)$this->context->getRequest()->getParam('post_id')
             )->getId();
         } catch (NoSuchEntityException $e) {
         }

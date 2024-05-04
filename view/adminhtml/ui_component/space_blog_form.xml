@@ -36,8 +36,8 @@
         </settings>
         <dataProvider class="Space\Blog\Model\Source\DataProvider" name="blog_form_data_source">
             <settings>
-                <requestFieldName>blog_id</requestFieldName>
-                <primaryFieldName>blog_id</primaryFieldName>
+                <requestFieldName>post_id</requestFieldName>
+                <primaryFieldName>post_id</primaryFieldName>
             </settings>
         </dataProvider>
     </dataSource>
@@ -45,7 +45,7 @@
         <settings>
             <label/>
         </settings>
-        <field name="blog_id" formElement="input">
+        <field name="post_id" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">blog</item>
@@ -54,7 +54,7 @@
             <settings>
                 <dataType>text</dataType>
                 <visible>false</visible>
-                <dataScope>blog_id</dataScope>
+                <dataScope>post_id</dataScope>
             </settings>
         </field>
         <field name="is_active" sortOrder="10" formElement="checkbox">

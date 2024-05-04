@@ -65,7 +65,7 @@ class View extends Action implements HttpGetActionInterface
         $resultPage = $this->resultPageFactory->create();
         /** @var Post $viewBlock */
         $viewBlock = $resultPage->getLayout()->getBlock('space.blog.view');
-        $viewBlock?->setData(PostInterface::BLOG_ID, (int)$postId);
+        $viewBlock?->setData(PostInterface::POST_ID, (int)$postId);
 
         return $resultPage;
     }

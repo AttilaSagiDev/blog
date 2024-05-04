@@ -60,12 +60,12 @@ class Edit extends Action implements HttpGetActionInterface
      */
     public function execute(): Redirect|ResultInterface|ResponseInterface|Page
     {
-        $id = $this->getRequest()->getParam('blog_id');
-        $blog = $this->_objectManager->create(Post::class);
+        $id = $this->getRequest()->getParam('post_id');
+        $post = $this->_objectManager->create(Post::class);
 
         if ($id) {
-            $blog->load($id);
-            if (!$blog->getId()) {
+            $post->load($id);
+            if (!$post->getId()) {
                 $this->messageManager->addErrorMessage(__('This post no longer exists.'));
                 /** @var Redirect $resultRedirect */
                 $resultRedirect = $this->resultRedirectFactory->create();
@@ -73,7 +73,7 @@ class Edit extends Action implements HttpGetActionInterface
             }
         }
 
-        $this->registry->register('space_blog', $blog);
+        $this->registry->register('blog_post', $post);
 
         /** @var Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
@@ -81,7 +81,7 @@ class Edit extends Action implements HttpGetActionInterface
             ->addBreadcrumb(__('Edit Post'), __('Edit Post'))
             ->addBreadcrumb(__('Edit Post'), __('Edit Post'));
         $resultPage->getConfig()->getTitle()->prepend(__('Posts'));
-        $resultPage->getConfig()->getTitle()->prepend($blog->getId() ? $blog->getTitle() : __('New Post'));
+        $resultPage->getConfig()->getTitle()->prepend($post->getId() ? $post->getTitle() : __('New Post'));
 
         return $resultPage;
     }

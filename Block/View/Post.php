@@ -10,29 +10,29 @@ namespace Space\Blog\Block\View;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\View\Element\Template;
-use Space\Blog\Api\BlogRepositoryInterface;
+use Space\Blog\Api\PostRepositoryInterface;
 use Space\Blog\Api\Data\PostInterface;
 
 class Post extends Template
 {
     /**
-     * @var BlogRepositoryInterface
+     * @var PostRepositoryInterface
      */
-    private BlogRepositoryInterface $blogRepository;
+    private PostRepositoryInterface $postRepository;
 
     /**
      * Constructor
      *
      * @param Template\Context $context
-     * @param BlogRepositoryInterface $blogRepository
+     * @param PostRepositoryInterface $postRepository
      * @param array $data
      */
     public function __construct(
         Template\Context $context,
-        BlogRepositoryInterface $blogRepository,
+        PostRepositoryInterface $postRepository,
         array $data = []
     ) {
-        $this->blogRepository = $blogRepository;
+        $this->postRepository = $postRepository;
         parent::__construct($context, $data);
     }
 
@@ -46,7 +46,7 @@ class Post extends Template
     {
         $postId = $this->getPostId();
         if ($postId) {
-            return $this->blogRepository->getById($postId);
+            return $this->postRepository->getById($postId);
         }
     }
 
@@ -67,6 +67,6 @@ class Post extends Template
      */
     private function getPostId(): int
     {
-        return (int)$this->getData(PostInterface::BLOG_ID);
+        return (int)$this->getData(PostInterface::POST_ID);
     }
 }

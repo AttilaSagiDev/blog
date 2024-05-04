@@ -79,14 +79,14 @@ class Save extends Action implements HttpPostActionInterface
             if (isset($data['is_active']) && $data['is_active'] === 'true') {
                 $data['is_active'] = IsActive::STATUS_ENABLED;
             }
-            if (empty($data['blog_id'])) {
-                $data['blog_id'] = null;
+            if (empty($data['post_id'])) {
+                $data['post_id'] = null;
             }
 
             /** @var Post $model */
             $model = $this->postFactory->create();
 
-            $id = (int)$this->getRequest()->getParam('blog_id');
+            $id = (int)$this->getRequest()->getParam('post_id');
             if ($id) {
                 try {
                     $model = $this->postRepository->getById($id);
@@ -108,7 +108,7 @@ class Save extends Action implements HttpPostActionInterface
             }
 
             $this->dataPersistor->set('space_blog', $data);
-            return $resultRedirect->setPath('*/*/edit', ['blog_id' => $id]);
+            return $resultRedirect->setPath('*/*/edit', ['post_id' => $id]);
         }
 
         return $resultRedirect->setPath('*/*/');
@@ -128,7 +128,7 @@ class Save extends Action implements HttpPostActionInterface
         $redirect = $data['back'] ?? 'close';
 
         if ($redirect ==='continue') {
-            $resultRedirect->setPath('*/*/edit', ['blog_id' => $model->getId()]);
+            $resultRedirect->setPath('*/*/edit', ['post_id' => $model->getId()]);
         } elseif ($redirect === 'close') {
             $resultRedirect->setPath('*/*/');
         } elseif ($redirect === 'duplicate') {
@@ -139,7 +139,7 @@ class Save extends Action implements HttpPostActionInterface
             $id = $duplicateModel->getId();
             $this->messageManager->addSuccessMessage(__('You duplicated the post.'));
             $this->dataPersistor->set('space_blog', $data);
-            $resultRedirect->setPath('*/*/edit', ['blog_id' => $id]);
+            $resultRedirect->setPath('*/*/edit', ['post_id' => $id]);
         }
 
         return $resultRedirect;

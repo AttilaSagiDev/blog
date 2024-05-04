@@ -68,7 +68,7 @@ class Post extends AbstractDb
      */
     protected function _construct(): void
     {
-        $this->_init('space_blog', PostInterface::BLOG_ID);
+        $this->_init('space_blog', PostInterface::POST_ID);
     }
 
     /**
@@ -92,9 +92,9 @@ class Post extends AbstractDb
      */
     public function load(AbstractModel $object, $value, $field = null): Post|static
     {
-        $blogId = $this->getBlogId($object, $value, $field);
-        if ($blogId) {
-            $this->entityManager->load($object, $blogId);
+        $postId = $this->getPostId($object, $value, $field);
+        if ($postId) {
+            $this->entityManager->load($object, $postId);
         }
 
         return $this;
@@ -138,7 +138,7 @@ class Post extends AbstractDb
      * @throws LocalizedException
      * @throws Exception
      */
-    private function getBlogId(AbstractModel $object, mixed $value, string $field = null): bool|int|string
+    private function getPostId(AbstractModel $object, mixed $value, string $field = null): bool|int|string
     {
         $entityMetadata = $this->metadataPool->getMetadata(PostInterface::class);
         if (!$field) {
@@ -212,8 +212,8 @@ class Post extends AbstractDb
                 'sbs.' . $linkField . ' = sb.' . $linkField,
                 []
             )
-            ->where('sb.' . $entityMetadata->getIdentifierField() . ' = :blog_id');
+            ->where('sb.' . $entityMetadata->getIdentifierField() . ' = :post_id');
 
-        return $connection->fetchCol($select, ['blog_id' => (int)$id]);
+        return $connection->fetchCol($select, ['post_id' => (int)$id]);
     }
 }

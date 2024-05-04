@@ -13,7 +13,7 @@ interface PostInterface
     /**
      * Constants for keys of data array
      */
-    public const BLOG_ID = 'blog_id';
+    public const POST_ID = 'post_id';
     public const TITLE = 'title';
     public const CONTENT = 'content';
     public const AUTHOR = 'author';

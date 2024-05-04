@@ -26,7 +26,7 @@ class Post extends AbstractModel implements PostInterface, IdentityInterface
     /**
      * Post cache tag
      */
-    public const CACHE_TAG = 'space_blog';
+    public const CACHE_TAG = 'blog_post';
 
     /**
      * @var string
@@ -38,7 +38,7 @@ class Post extends AbstractModel implements PostInterface, IdentityInterface
      *
      * @var string
      */
-    protected $_eventPrefix = 'space_blog';
+    protected $_eventPrefix = 'blog_post';
 
     /**
      * Constructor
@@ -86,7 +86,7 @@ class Post extends AbstractModel implements PostInterface, IdentityInterface
      */
     public function getId(): ?int
     {
-        return (int)$this->getData(self::BLOG_ID);
+        return (int)$this->getData(self::POST_ID);
     }
 
     /**
@@ -157,7 +157,7 @@ class Post extends AbstractModel implements PostInterface, IdentityInterface
      */
     public function setId($id): PostInterface
     {
-        return $this->setData(self::BLOG_ID, $id);
+        return $this->setData(self::POST_ID, $id);
     }
 
     /**

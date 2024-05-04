@@ -51,18 +51,18 @@ class Delete extends Action implements HttpPostActionInterface
     public function execute(): ResultInterface|ResponseInterface|Redirect
     {
         $resultRedirect = $this->resultRedirectFactory->create();
-        $id = (int)$this->getRequest()->getParam('blog_id');
+        $id = (int)$this->getRequest()->getParam('post_id');
         if ($id) {
             try {
-                $blog = $this->postRepository->getById($id);
-                if ($blog->getId()) {
-                    $this->postRepository->deleteById($blog->getId());
+                $post = $this->postRepository->getById($id);
+                if ($post->getId()) {
+                    $this->postRepository->deleteById($post->getId());
                 }
                 $this->messageManager->addSuccessMessage(__('You deleted the post.'));
                 return $resultRedirect->setPath('*/*/');
             } catch (NoSuchEntityException|\Exception $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
-                return $resultRedirect->setPath('*/*/edit', ['blog_id' => $id]);
+                return $resultRedirect->setPath('*/*/edit', ['post_id' => $id]);
             }
         }
         $this->messageManager->addErrorMessage(__('We can\'t find a post to delete.'));

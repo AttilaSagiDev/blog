@@ -13,7 +13,7 @@ use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Ui\Component\MassAction\Filter;
 use Space\Blog\Model\ResourceModel\Post\CollectionFactory;
-use Space\Blog\Model\BlogRepository;
+use Space\Blog\Model\PostRepository;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultInterface;
@@ -41,9 +41,9 @@ class MassEnable extends Action implements HttpPostActionInterface
     private CollectionFactory $collectionFactory;
 
     /**
-     * @var BlogRepository
+     * @var PostRepository
      */
-    private BlogRepository $blogRepository;
+    private PostRepository $postRepository;
 
     /**
      * Constructor
@@ -51,17 +51,17 @@ class MassEnable extends Action implements HttpPostActionInterface
      * @param Context $context
      * @param Filter $filter
      * @param CollectionFactory $collectionFactory
-     * @param BlogRepository $blogRepository
+     * @param PostRepository $postRepository
      */
     public function __construct(
         Context $context,
         Filter $filter,
         CollectionFactory $collectionFactory,
-        BlogRepository $blogRepository
+        PostRepository $postRepository
     ) {
         $this->filter = $filter;
         $this->collectionFactory = $collectionFactory;
-        $this->blogRepository = $blogRepository;
+        $this->postRepository = $postRepository;
         parent::__construct($context);
     }
 
@@ -77,10 +77,10 @@ class MassEnable extends Action implements HttpPostActionInterface
     {
         $collection = $this->filter->getCollection($this->collectionFactory->create());
 
-        /** @var Post $blog */
-        foreach ($collection as $blog) {
-            $blog->setIsActive(true);
-            $this->blogRepository->save($blog);
+        /** @var Post $post */
+        foreach ($collection as $post) {
+            $post->setIsActive(true);
+            $this->postRepository->save($post);
         }
 
         $this->messageManager->addSuccessMessage(

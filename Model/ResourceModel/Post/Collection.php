@@ -30,17 +30,17 @@ class Collection extends AbstractCollection
     /**
      * @var string
      */
-    protected $_idFieldName = 'blog_id';
+    protected $_idFieldName = 'post_id';
 
     /**
      * @var string
      */
-    protected $_eventPrefix = 'space_blog_collection';
+    protected $_eventPrefix = 'blog_post_collection';
 
     /**
      * @var string
      */
-    protected $_eventObject = 'blog_collection';
+    protected $_eventObject = 'post_collection';
 
     /**
      * @var StoreManagerInterface
@@ -103,7 +103,7 @@ class Collection extends AbstractCollection
     {
         $this->_init(Post::class, BlogResourceModel::class);
         $this->_map['fields']['store'] = 'store_table.store_id';
-        $this->_map['fields']['blog_id'] = 'main_table.blog_id';
+        $this->_map['fields']['post_id'] = 'main_table.post_id';
     }
 
     /**
@@ -151,13 +151,13 @@ class Collection extends AbstractCollection
     }
 
     /**
-     * Returns pairs blog_id - title
+     * Returns pairs post_id - title
      *
      * @return array
      */
     public function toOptionArray(): array
     {
-        return $this->_toOptionArray('blog_id', 'title');
+        return $this->_toOptionArray('post_id', 'title');
     }
 
     /**

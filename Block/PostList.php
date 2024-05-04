@@ -90,7 +90,7 @@ class PostList extends Template
             ->addFieldToFilter(PostInterface::IS_ACTIVE, ['eq' => 1])
             ->setPageSize($limit)
             ->setCurPage($page)
-            ->setOrder(PostInterface::BLOG_ID, 'DESC');
+            ->setOrder(PostInterface::POST_ID, 'DESC');
 
         return $collection;
     }

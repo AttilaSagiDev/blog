@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -74,12 +75,12 @@ class DataProvider extends ModifierPoolDataProvider
             $this->loadedData[$post->getId()] = $post->getData();
         }
 
-        $data = $this->dataPersistor->get('space_blog');
+        $data = $this->dataPersistor->get('blog_post');
         if (!empty($data)) {
             $post = $this->collection->getNewEmptyItem();
             $post->setData($data);
             $this->loadedData[$post->getId()] = $post->getData();
-            $this->dataPersistor->clear('space_blog');
+            $this->dataPersistor->clear('blog_post');
         }
 
         return $this->loadedData;

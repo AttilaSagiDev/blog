@@ -99,7 +99,7 @@ class Save extends Action implements HttpPostActionInterface
             try {
                 $this->postRepository->save($model);
                 $this->messageManager->addSuccessMessage(__('You saved the post.'));
-                $this->dataPersistor->clear('space_blog');
+                $this->dataPersistor->clear('blog_post');
                 return $this->processBlogReturn($model, $data, $resultRedirect);
             } catch (LocalizedException $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
@@ -107,7 +107,7 @@ class Save extends Action implements HttpPostActionInterface
                 $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the post.'));
             }
 
-            $this->dataPersistor->set('space_blog', $data);
+            $this->dataPersistor->set('blog_post', $data);
             return $resultRedirect->setPath('*/*/edit', ['post_id' => $id]);
         }
 
@@ -138,7 +138,7 @@ class Save extends Action implements HttpPostActionInterface
             $this->postRepository->save($duplicateModel);
             $id = $duplicateModel->getId();
             $this->messageManager->addSuccessMessage(__('You duplicated the post.'));
-            $this->dataPersistor->set('space_blog', $data);
+            $this->dataPersistor->set('blog_post', $data);
             $resultRedirect->setPath('*/*/edit', ['post_id' => $id]);
         }
 

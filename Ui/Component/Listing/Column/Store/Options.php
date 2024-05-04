@@ -12,6 +12,11 @@ use Magento\Store\Ui\Component\Listing\Column\Store\Options as StoreOptions;
 class Options extends StoreOptions
 {
     /**
+     * All store view label
+     */
+    private const ALL_STORE_VIEW_LABEL = 'All Store Views';
+
+    /**
      * All Store Views value
      */
     public const ALL_STORE_VIEWS = '0';
@@ -27,8 +32,8 @@ class Options extends StoreOptions
             return $this->options;
         }
 
-        $this->currentOptions['All Store Views']['label'] = __('All Store Views');
-        $this->currentOptions['All Store Views']['value'] = self::ALL_STORE_VIEWS;
+        $this->currentOptions[self::ALL_STORE_VIEW_LABEL]['label'] = __('All Store Views');
+        $this->currentOptions[self::ALL_STORE_VIEW_LABEL]['value'] = self::ALL_STORE_VIEWS;
 
         $this->generateCurrentOptions();
 

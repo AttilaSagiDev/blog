@@ -56,7 +56,7 @@ class Index extends Action implements HttpGetActionInterface
         $resultPage->getConfig()->getTitle()->prepend(__('Posts'));
 
         $dataPersistor = $this->_objectManager->get(DataPersistorInterface::class);
-        $dataPersistor->clear('space_blog');
+        $dataPersistor->clear('blog_post');
 
         return $resultPage;
     }

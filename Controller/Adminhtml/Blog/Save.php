@@ -96,6 +96,8 @@ class Save extends Action implements HttpPostActionInterface
                 }
             }
 
+            $model->setData($data);
+
             try {
                 $this->postRepository->save($model);
                 $this->messageManager->addSuccessMessage(__('You saved the post.'));

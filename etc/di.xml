@@ -26,8 +26,8 @@
     <type name="Space\Blog\Model\ResourceModel\Post\Grid\Collection">
         <arguments>
             <argument name="mainTable" xsi:type="string">space_blog</argument>
-            <argument name="eventPrefix" xsi:type="string">space_blog_grid_collection</argument>
-            <argument name="eventObject" xsi:type="string">blog_grid_collection</argument>
+            <argument name="eventPrefix" xsi:type="string">blog_post_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">post_grid_collection</argument>
             <argument name="resourceModel" xsi:type="string">Space\Blog\Model\ResourceModel\Post</argument>
         </arguments>
     </type>
@@ -112,7 +112,7 @@
         </arguments>
     </virtualType>
 
-    <type name="Space\Blog\Model\BlogRepository">
+    <type name="Space\Blog\Model\PostRepository">
         <arguments>
             <argument name="collectionProcessor"
                       xsi:type="object">Space\Blog\Model\Api\SearchCriteria\PostCollectionProcessor

@@ -13,7 +13,7 @@ interface ConfigInterface
     /**
      * Enabled config path
      */
-    public const XML_PATH_ENABLED = 'space/basic/enabled';
+    public const XML_PATH_ENABLED = 'blog_settings/space_blog_config/enabled';
 
     /**
      * Is enabled

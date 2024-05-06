@@ -12,14 +12,16 @@
             <resource id="Magento_Backend::admin">
                 <resource id="Magento_Backend::content">
                     <resource id="Magento_Backend::content_elements">
-                        <resource id="Space_Blog::blog" title="Space Blogs" translate="title" sortOrder="100"/>
+                        <resource id="Space_Blog::space_blog" title="Space Blog" translate="title" sortOrder="500">
+                            <resource id="Space_Blog::blog" title="Blog" translate="title" sortOrder="100"/>
+                        </resource>
                     </resource>
                 </resource>
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="Space_Blog::config_space_blogs" title="Space Blogs Management"
-                                      translate="title"/>
+                            <resource id="Space_Blog::blog_settings"
+                                      title="Blog" translate="title"/>
                         </resource>
                     </resource>
                 </resource>

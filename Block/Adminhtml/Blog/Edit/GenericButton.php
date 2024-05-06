@@ -10,6 +10,7 @@ namespace Space\Blog\Block\Adminhtml\Blog\Edit;
 
 use Magento\Backend\Block\Widget\Context;
 use Space\Blog\Api\PostRepositoryInterface;
+use Psr\Log\LoggerInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\LocalizedException;
 
@@ -26,17 +27,25 @@ class GenericButton
     protected PostRepositoryInterface $postRepository;
 
     /**
+     * @var LoggerInterface
+     */
+    protected LoggerInterface $logger;
+
+    /**
      * Construct
      *
      * @param Context $context
      * @param PostRepositoryInterface $postRepository
+     * @param LoggerInterface $logger
      */
     public function __construct(
         Context $context,
-        PostRepositoryInterface $postRepository
+        PostRepositoryInterface $postRepository,
+        LoggerInterface $logger
     ) {
         $this->context = $context;
         $this->postRepository = $postRepository;
+        $this->logger = $logger;
     }
 
     /**
@@ -52,6 +61,7 @@ class GenericButton
                 (int)$this->context->getRequest()->getParam('post_id')
             )->getId();
         } catch (NoSuchEntityException $e) {
+            $this->logger->error($e->getMessage());
         }
 
         return null;

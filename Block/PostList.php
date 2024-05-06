@@ -34,16 +34,6 @@ class PostList extends Template
     private CollectionFactory $collectionFactory;
 
     /**
-     * @var SearchCriteriaBuilder
-     */
-    private SearchCriteriaBuilder $searchCriteriaBuilder;
-
-    /**
-     * @var PostRepositoryInterface
-     */
-    private PostRepositoryInterface $postRepository;
-
-    /**
      * @var StoreManagerInterface
      */
     private StoreManagerInterface $storeManager;
@@ -53,22 +43,16 @@ class PostList extends Template
      *
      * @param Context $context
      * @param CollectionFactory $collectionFactory
-     * @param SearchCriteriaBuilder $searchCriteriaBuilder
-     * @param PostRepositoryInterface $postRepository
      * @param StoreManagerInterface $storeManager
      * @param array $data
      */
     public function __construct(
         Template\Context $context,
         CollectionFactory $collectionFactory,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
-        PostRepositoryInterface $postRepository,
         StoreManagerInterface $storeManager,
         array $data = []
     ) {
         $this->collectionFactory = $collectionFactory;
-        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->postRepository = $postRepository;
         $this->storeManager = $storeManager;
         parent::__construct($context, $data);
     }
@@ -93,25 +77,6 @@ class PostList extends Template
             ->setOrder(PostInterface::POST_ID, 'DESC');
 
         return $collection;
-    }
-
-    /**
-     * Get post results for testing
-     * @deprecated because not used
-     *
-     * @param int $page
-     * @param int $limit
-     * @return PostSearchResultsInterface
-     * @throws LocalizedException
-     */
-    public function getPostResults(int $page, int $limit): PostSearchResultsInterface
-    {
-        $this->searchCriteriaBuilder->addFilter(PostInterface::IS_ACTIVE, 1);
-        $searchCriteria = $this->searchCriteriaBuilder->create();
-        $searchCriteria->setCurrentPage($page)
-            ->setPageSize($limit);
-
-        return $this->postRepository->getList($searchCriteria);
     }
 
     /**

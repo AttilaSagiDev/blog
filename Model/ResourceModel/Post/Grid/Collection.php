@@ -99,11 +99,9 @@ class Collection extends PostCollection implements SearchResultInterface
      */
     public function addFieldToFilter($field, $condition = null): static
     {
-        if ($field === 'creation_time' || $field === 'update_time') {
-            if (is_array($condition)) {
-                foreach ($condition as $key => $value) {
-                    $condition[$key] = $this->timeZone->convertConfigTimeToUtc($value);
-                }
+        if ($field === 'creation_time' || $field === 'update_time' && is_array($condition)) {
+            foreach ($condition as $key => $value) {
+                $condition[$key] = $this->timeZone->convertConfigTimeToUtc($value);
             }
         }
 

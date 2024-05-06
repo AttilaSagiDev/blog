@@ -114,7 +114,7 @@ class Collection extends AbstractCollection
      * @return void
      * @throws NoSuchEntityException
      */
-    protected function performAfterLoad(string $tableName, ?string $linkField): void
+    protected function performAfterLoad(string $tableName, ?string $linkField): void //NOSONAR
     {
         $linkedIds = $this->getColumnValues($linkField);
         if (count($linkedIds)) {

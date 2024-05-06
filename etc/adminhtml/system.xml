@@ -7,16 +7,21 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <section id="space" translate="label" type="text" sortOrder="2000" showInDefault="1" showInWebsite="1" showInStore="1">
+        <tab id="space_tab" translate="label" sortOrder="500">
+            <label>Space Extensions</label>
+        </tab>
+        <section id="blog_settings" translate="label" type="text" sortOrder="2000" showInDefault="1"
+                 showInWebsite="1" showInStore="1">
             <label>Space Blog</label>
-            <tab>general</tab>
-            <resource>Space_Blog::config_space_blogs</resource>
-            <group id="basic" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Blog Options</label>
+            <tab>space_tab</tab>
+            <resource>Space_Blog::space_blog</resource>
+            <group id="blog_config" translate="label" type="text" sortOrder="10" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Configuration</label>
                 <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"
                        showInStore="1" canRestore="1">
-                    <label>Enable Blogs</label>
-                    <comment>Please select yes to enable blogs.</comment>
+                    <label>Enable Blog</label>
+                    <comment>Please select yes to enable blog.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>

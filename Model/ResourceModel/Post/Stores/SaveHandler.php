@@ -1,16 +1,17 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
 
-namespace Space\Blog\Model\ResourceModel\Blog\Stores;
+namespace Space\Blog\Model\ResourceModel\Post\Stores;
 
 use Magento\Framework\EntityManager\Operation\ExtensionInterface;
 use Magento\Framework\EntityManager\MetadataPool;
-use Space\Blog\Api\Data\BlogInterface;
-use Space\Blog\Model\ResourceModel\Blog;
+use Space\Blog\Api\Data\PostInterface;
+use Space\Blog\Model\ResourceModel\Post;
 use Exception;
 
 class SaveHandler implements ExtensionInterface
@@ -21,20 +22,20 @@ class SaveHandler implements ExtensionInterface
     protected MetadataPool $metadataPool;
 
     /**
-     * @var Blog
+     * @var Post
      */
-    protected Blog $resourceBlog;
+    protected Post $resourcePost;
 
     /**
      * @param MetadataPool $metadataPool
-     * @param Blog $resourceBlog
+     * @param Post $resourcePost
      */
     public function __construct(
         MetadataPool $metadataPool,
-        Blog $resourceBlog
+        Post $resourcePost
     ) {
         $this->metadataPool = $metadataPool;
-        $this->resourceBlog = $resourceBlog;
+        $this->resourcePost = $resourcePost;
     }
 
     /**
@@ -47,15 +48,15 @@ class SaveHandler implements ExtensionInterface
      */
     public function execute($entity, $arguments = []): object
     {
-        $entityMetadata = $this->metadataPool->getMetadata(BlogInterface::class);
+        $entityMetadata = $this->metadataPool->getMetadata(PostInterface::class);
         $linkField = $entityMetadata->getLinkField();
 
         $connection = $entityMetadata->getEntityConnection();
 
-        $oldStores = $this->resourceBlog->lookupStoreIds((int)$entity->getId());
+        $oldStores = $this->resourcePost->lookupStoreIds((int)$entity->getId());
         $newStores = (array)$entity->getStoreId();
 
-        $table = $this->resourceBlog->getTable('space_blog_store');
+        $table = $this->resourcePost->getTable('space_blog_store');
 
         $delete = array_diff($oldStores, $newStores);
         if ($delete) {

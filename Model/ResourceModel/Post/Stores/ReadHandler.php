@@ -1,32 +1,33 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
 
-namespace Space\Blog\Model\ResourceModel\Blog\Stores;
+namespace Space\Blog\Model\ResourceModel\Post\Stores;
 
-use Space\Blog\Model\ResourceModel\Blog;
+use Space\Blog\Model\ResourceModel\Post;
 use Magento\Framework\EntityManager\Operation\ExtensionInterface;
 use Magento\Framework\Exception\LocalizedException;
 
 class ReadHandler implements ExtensionInterface
 {
     /**
-     * @var Blog
+     * @var Post
      */
-    protected Blog $resourceBlog;
+    protected Post $resourcePost;
 
     /**
      * Constructor
      *
-     * @param Blog $resourceBlog
+     * @param Post $resourcePost
      */
     public function __construct(
-        Blog $resourceBlog
+        Post $resourcePost
     ) {
-        $this->resourceBlog = $resourceBlog;
+        $this->resourcePost = $resourcePost;
     }
 
     /**
@@ -40,7 +41,7 @@ class ReadHandler implements ExtensionInterface
     public function execute($entity, $arguments = []): object
     {
         if ($entity->getId()) {
-            $stores = $this->resourceBlog->lookupStoreIds((int)$entity->getId());
+            $stores = $this->resourcePost->lookupStoreIds((int)$entity->getId());
             $entity->setData('store_id', $stores);
             $entity->setData('stores', $stores);
         }

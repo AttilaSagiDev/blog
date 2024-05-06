@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -8,9 +9,9 @@ declare(strict_types=1);
 namespace Space\Blog\Console\Command;
 
 use Symfony\Component\Console\Command\Command;
-use Space\Blog\Model\ResourceModel\Blog\CollectionFactory;
-use Space\Blog\Model\BlogFactory;
-use Space\Blog\Model\BlogRepository;
+use Space\Blog\Model\ResourceModel\Post\CollectionFactory;
+use Space\Blog\Model\PostFactory;
+use Space\Blog\Model\PostRepository;
 use Magento\Store\Model\StoreManagerInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -41,14 +42,14 @@ class Generate extends Command
     private CollectionFactory $collectionFactory;
 
     /**
-     * @var BlogFactory
+     * @var PostFactory
      */
-    private BlogFactory $blogFactory;
+    private PostFactory $postFactory;
 
     /**
-     * @var BlogRepository
+     * @var PostRepository
      */
-    private BlogRepository $blogRepository;
+    private PostRepository $postRepository;
 
     /**
      * @var StoreManagerInterface
@@ -59,21 +60,21 @@ class Generate extends Command
      * Constructor
      *
      * @param CollectionFactory $collectionFactory
-     * @param BlogFactory $blogFactory
-     * @param BlogRepository $blogRepository
+     * @param PostFactory $postFactory
+     * @param PostRepository $postRepository
      * @param StoreManagerInterface $storeManager
      * @param string|null $name
      */
     public function __construct(
         CollectionFactory $collectionFactory,
-        BlogFactory $blogFactory,
-        BlogRepository $blogRepository,
+        PostFactory $postFactory,
+        PostRepository $postRepository,
         StoreManagerInterface $storeManager,
         string $name = null
     ) {
         $this->collectionFactory = $collectionFactory;
-        $this->blogFactory = $blogFactory;
-        $this->blogRepository = $blogRepository;
+        $this->postFactory = $postFactory;
+        $this->postRepository = $postRepository;
         $this->storeManager = $storeManager;
         parent::__construct($name);
     }
@@ -127,20 +128,20 @@ class Generate extends Command
                 $output->writeln('<info>Starting post generation...</info>');
                 $storeId = $this->storeManager->getDefaultStoreView()->getId();
                 for ($i = 1; $i <= $count; $i++) {
-                    $blogValues = $this->getCustomBlogValues($i);
-                    $blog = $this->blogFactory->create();
-                    $blog->setTitle($blogValues['title']);
-                    $blog->setAuthor($blogValues['author']);
-                    $blog->setStoreId($storeId);
-                    $blog->setContent($blogValues['content']);
-                    $blog->setIsActive(true);
-                    $this->blogRepository->save($blog);
+                    $postValues = $this->getCustomBlogValues($i);
+                    $post = $this->postFactory->create();
+                    $post->setTitle($postValues['title']);
+                    $post->setAuthor($postValues['author']);
+                    $post->setStoreId($storeId);
+                    $post->setContent($postValues['content']);
+                    $post->setIsActive(true);
+                    $this->postRepository->save($post);
 
-                    if (!$blog->getId()) {
+                    if (!$post->getId()) {
                         throw new LocalizedException(__('Unable to create post'));
                     }
 
-                    $output->writeln(sprintf('<info>Post created with ID: %s</info>', $blog->getId()));
+                    $output->writeln(sprintf('<info>Post created with ID: %s</info>', $post->getId()));
                 }
             } else {
                 throw new LocalizedException(__('Please provide count parameter. See space:blog:generate -h'));

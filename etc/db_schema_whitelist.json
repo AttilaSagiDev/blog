@@ -1,7 +1,7 @@
 {
     "space_blog": {
         "column": {
-            "blog_id": true,
+            "post_id": true,
             "title": true,
             "content": true,
             "author": true,
@@ -18,7 +18,7 @@
     },
     "space_blog_store": {
         "column": {
-            "blog_id": true,
+            "post_id": true,
             "store_id": true
         },
         "index": {
@@ -26,7 +26,7 @@
         },
         "constraint": {
             "PRIMARY": true,
-            "SPACE_BLOG_STORE_BLOG_ID_SPACE_BLOG_BLOG_ID": true,
+            "SPACE_BLOG_STORE_POST_ID_SPACE_BLOG_POST_ID": true,
             "SPACE_BLOG_STORE_STORE_ID_STORE_STORE_ID": true
         }
     }

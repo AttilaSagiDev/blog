@@ -1,18 +1,19 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
 
 namespace Space\Blog\Api\Data;
 
-interface BlogInterface
+interface PostInterface
 {
     /**
      * Constants for keys of data array
      */
-    public const BLOG_ID = 'blog_id';
+    public const POST_ID = 'post_id';
     public const TITLE = 'title';
     public const CONTENT = 'content';
     public const AUTHOR = 'author';
@@ -73,55 +74,55 @@ interface BlogInterface
      * Set ID
      *
      * @param int $id
-     * @return BlogInterface
+     * @return PostInterface
      */
-    public function setId(int $id): BlogInterface;
+    public function setId(int $id): PostInterface;
 
     /**
      * Set title
      *
      * @param string $title
-     * @return BlogInterface
+     * @return PostInterface
      */
-    public function setTitle(string $title): BlogInterface;
+    public function setTitle(string $title): PostInterface;
 
     /**
      * Set content
      *
      * @param string $content
-     * @return BlogInterface
+     * @return PostInterface
      */
-    public function setContent(string $content): BlogInterface;
+    public function setContent(string $content): PostInterface;
 
     /**
      * Set author
      *
      * @param string $author
-     * @return BlogInterface
+     * @return PostInterface
      */
-    public function setAuthor(string $author): BlogInterface;
+    public function setAuthor(string $author): PostInterface;
 
     /**
      * Set creation time
      *
      * @param string $creationTime
-     * @return BlogInterface
+     * @return PostInterface
      */
-    public function setCreationTime(string $creationTime): BlogInterface;
+    public function setCreationTime(string $creationTime): PostInterface;
 
     /**
      * Set update time
      *
      * @param string $updateTime
-     * @return BlogInterface
+     * @return PostInterface
      */
-    public function setUpdateTime(string $updateTime): BlogInterface;
+    public function setUpdateTime(string $updateTime): PostInterface;
 
     /**
      * Set is active
      *
      * @param bool|int $isActive
-     * @return BlogInterface
+     * @return PostInterface
      */
-    public function setIsActive(bool|int $isActive): BlogInterface;
+    public function setIsActive(bool|int $isActive): PostInterface;
 }

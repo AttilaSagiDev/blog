@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -16,7 +17,7 @@ use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultInterface;
 use Space\Blog\Block\View\Post;
-use Space\Blog\Api\Data\BlogInterface;
+use Space\Blog\Api\Data\PostInterface;
 
 class View extends Action implements HttpGetActionInterface
 {
@@ -64,7 +65,7 @@ class View extends Action implements HttpGetActionInterface
         $resultPage = $this->resultPageFactory->create();
         /** @var Post $viewBlock */
         $viewBlock = $resultPage->getLayout()->getBlock('space.blog.view');
-        $viewBlock?->setData(BlogInterface::BLOG_ID, (int)$postId);
+        $viewBlock?->setData(PostInterface::POST_ID, (int)$postId);
 
         return $resultPage;
     }

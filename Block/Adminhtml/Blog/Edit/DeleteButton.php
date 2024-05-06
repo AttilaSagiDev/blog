@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -21,7 +22,7 @@ class DeleteButton extends GenericButton implements ButtonProviderInterface
     public function getButtonData(): array
     {
         $data = [];
-        if ($this->getBlogId()) {
+        if ($this->getPostId()) {
             $data = [
                 'label' => __('Delete Post'),
                 'class' => 'delete',
@@ -41,6 +42,6 @@ class DeleteButton extends GenericButton implements ButtonProviderInterface
      */
     public function getDeleteUrl(): string
     {
-        return $this->getUrl('*/*/delete', ['blog_id' => $this->getBlogId()]);
+        return $this->getUrl('*/*/delete', ['post_id' => $this->getPostId()]);
     }
 }

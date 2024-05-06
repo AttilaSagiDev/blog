@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -10,9 +11,9 @@ namespace Space\Blog\Model\Api\SearchCriteria\CollectionProcessor\FilterProcesso
 use Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor\CustomFilterInterface;
 use Magento\Framework\Api\Filter;
 use Magento\Framework\Data\Collection\AbstractDb;
-use Space\Blog\Model\ResourceModel\Blog\Collection;
+use Space\Blog\Model\ResourceModel\Post\Collection;
 
-class BlogStoreFilter implements CustomFilterInterface
+class PostStoreFilter implements CustomFilterInterface
 {
     /**
      * Apply custom store filter to collection

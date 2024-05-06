@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,8 +10,6 @@
     <module name="Space_Blog">
         <sequence>
             <module name="Magento_Store"/>
-            <module name="Magento_Theme"/>
-            <module name="Magento_Variable"/>
         </sequence>
     </module>
 </config>

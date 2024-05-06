@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -11,12 +12,12 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Request\DataPersistorInterface;
-use Space\Blog\Model\BlogFactory;
-use Space\Blog\Api\BlogRepositoryInterface;
+use Space\Blog\Model\PostFactory;
+use Space\Blog\Api\PostRepositoryInterface;
 use Magento\Framework\App\ObjectManager;
 use Magento\Backend\Model\View\Result\Redirect;
 use Space\Blog\Model\Source\IsActive;
-use Space\Blog\Model\Blog;
+use Space\Blog\Model\Post;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\App\ResponseInterface;
@@ -34,32 +35,32 @@ class Save extends Action implements HttpPostActionInterface
     protected DataPersistorInterface $dataPersistor;
 
     /**
-     * @var BlogFactory
+     * @var PostFactory
      */
-    private BlogFactory $blogFactory;
+    private PostFactory $postFactory;
 
     /**
-     * @var BlogRepositoryInterface
+     * @var PostRepositoryInterface
      */
-    private BlogRepositoryInterface $blogRepository;
+    private PostRepositoryInterface $postRepository;
 
     /**
      * @param Context $context
      * @param DataPersistorInterface $dataPersistor
-     * @param BlogFactory|null $blogFactory
-     * @param BlogRepositoryInterface|null $blogRepository
+     * @param PostFactory|null $postFactory
+     * @param PostRepositoryInterface|null $postRepository
      */
     public function __construct(
         Context $context,
         DataPersistorInterface $dataPersistor,
-        BlogFactory $blogFactory = null,
-        BlogRepositoryInterface $blogRepository = null
+        PostFactory $postFactory = null,
+        PostRepositoryInterface $postRepository = null
     ) {
         $this->dataPersistor = $dataPersistor;
-        $this->blogFactory = $blogFactory
-            ?: ObjectManager::getInstance()->get(BlogFactory::class);
-        $this->blogRepository = $blogRepository
-            ?: ObjectManager::getInstance()->get(BlogRepositoryInterface::class);
+        $this->postFactory = $postFactory
+            ?: ObjectManager::getInstance()->get(PostFactory::class);
+        $this->postRepository = $postRepository
+            ?: ObjectManager::getInstance()->get(PostRepositoryInterface::class);
         parent::__construct($context);
     }
 
@@ -78,17 +79,17 @@ class Save extends Action implements HttpPostActionInterface
             if (isset($data['is_active']) && $data['is_active'] === 'true') {
                 $data['is_active'] = IsActive::STATUS_ENABLED;
             }
-            if (empty($data['blog_id'])) {
-                $data['blog_id'] = null;
+            if (empty($data['post_id'])) {
+                $data['post_id'] = null;
             }
 
-            /** @var Blog $model */
-            $model = $this->blogFactory->create();
+            /** @var Post $model */
+            $model = $this->postFactory->create();
 
-            $id = (int)$this->getRequest()->getParam('blog_id');
+            $id = (int)$this->getRequest()->getParam('post_id');
             if ($id) {
                 try {
-                    $model = $this->blogRepository->getById($id);
+                    $model = $this->postRepository->getById($id);
                 } catch (LocalizedException $e) {
                     $this->messageManager->addErrorMessage(__('This post no longer exists.'));
                     return $resultRedirect->setPath('*/*/');
@@ -98,9 +99,9 @@ class Save extends Action implements HttpPostActionInterface
             $model->setData($data);
 
             try {
-                $this->blogRepository->save($model);
+                $this->postRepository->save($model);
                 $this->messageManager->addSuccessMessage(__('You saved the post.'));
-                $this->dataPersistor->clear('space_blog');
+                $this->dataPersistor->clear('blog_post');
                 return $this->processBlogReturn($model, $data, $resultRedirect);
             } catch (LocalizedException $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
@@ -108,8 +109,8 @@ class Save extends Action implements HttpPostActionInterface
                 $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the post.'));
             }
 
-            $this->dataPersistor->set('space_blog', $data);
-            return $resultRedirect->setPath('*/*/edit', ['blog_id' => $id]);
+            $this->dataPersistor->set('blog_post', $data);
+            return $resultRedirect->setPath('*/*/edit', ['post_id' => $id]);
         }
 
         return $resultRedirect->setPath('*/*/');
@@ -118,29 +119,29 @@ class Save extends Action implements HttpPostActionInterface
     /**
      * Process and set the post return
      *
-     * @param Blog $model
+     * @param Post $model
      * @param array $data
      * @param ResultInterface $resultRedirect
      * @return ResultInterface
      * @throws LocalizedException
      */
-    private function processBlogReturn(Blog $model, array $data, ResultInterface $resultRedirect): ResultInterface
+    private function processBlogReturn(Post $model, array $data, ResultInterface $resultRedirect): ResultInterface
     {
         $redirect = $data['back'] ?? 'close';
 
         if ($redirect ==='continue') {
-            $resultRedirect->setPath('*/*/edit', ['blog_id' => $model->getId()]);
+            $resultRedirect->setPath('*/*/edit', ['post_id' => $model->getId()]);
         } elseif ($redirect === 'close') {
             $resultRedirect->setPath('*/*/');
         } elseif ($redirect === 'duplicate') {
-            $duplicateModel = $this->blogFactory->create(['data' => $data]);
+            $duplicateModel = $this->postFactory->create(['data' => $data]);
             $duplicateModel->setId(null);
             $duplicateModel->setIsActive(IsActive::STATUS_DISABLED);
-            $this->blogRepository->save($duplicateModel);
+            $this->postRepository->save($duplicateModel);
             $id = $duplicateModel->getId();
             $this->messageManager->addSuccessMessage(__('You duplicated the post.'));
-            $this->dataPersistor->set('space_blog', $data);
-            $resultRedirect->setPath('*/*/edit', ['blog_id' => $id]);
+            $this->dataPersistor->set('blog_post', $data);
+            $resultRedirect->setPath('*/*/edit', ['post_id' => $id]);
         }
 
         return $resultRedirect;

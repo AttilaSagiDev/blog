@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 -->
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -36,8 +37,8 @@
         </settings>
         <dataProvider class="Space\Blog\Model\Source\DataProvider" name="blog_form_data_source">
             <settings>
-                <requestFieldName>blog_id</requestFieldName>
-                <primaryFieldName>blog_id</primaryFieldName>
+                <requestFieldName>post_id</requestFieldName>
+                <primaryFieldName>post_id</primaryFieldName>
             </settings>
         </dataProvider>
     </dataSource>
@@ -45,22 +46,22 @@
         <settings>
             <label/>
         </settings>
-        <field name="blog_id" formElement="input">
+        <field name="post_id" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">blog</item>
+                    <item name="source" xsi:type="string">post</item>
                 </item>
             </argument>
             <settings>
                 <dataType>text</dataType>
                 <visible>false</visible>
-                <dataScope>blog_id</dataScope>
+                <dataScope>post_id</dataScope>
             </settings>
         </field>
         <field name="is_active" sortOrder="10" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">blog</item>
+                    <item name="source" xsi:type="string">post</item>
                     <item name="default" xsi:type="number">1</item>
                 </item>
             </argument>
@@ -84,7 +85,7 @@
         <field name="title" sortOrder="20" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">blog</item>
+                    <item name="source" xsi:type="string">post</item>
                 </item>
             </argument>
             <settings>
@@ -99,7 +100,7 @@
         <field name="storeviews" sortOrder="30" formElement="multiselect" class="Magento\Store\Ui\Component\Form\Field\StoreView">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">blog</item>
+                    <item name="source" xsi:type="string">post</item>
                     <item name="default" xsi:type="number">0</item>
                 </item>
             </argument>
@@ -126,7 +127,7 @@
         <field name="author" sortOrder="40" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">blog</item>
+                    <item name="source" xsi:type="string">post</item>
                 </item>
             </argument>
             <settings>
@@ -141,7 +142,7 @@
         <field name="content" sortOrder="50" formElement="textarea">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">blog</item>
+                    <item name="source" xsi:type="string">post</item>
                     <item name="cols" xsi:type="number">10</item>
                     <item name="rows" xsi:type="number">10</item>
                 </item>

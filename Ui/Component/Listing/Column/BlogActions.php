@@ -62,14 +62,14 @@ class BlogActions extends Column
     {
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
-                if (isset($item['blog_id'])) {
+                if (isset($item['post_id'])) {
                     $title = $this->escaper->escapeHtmlAttr($item['title']);
                     $item[$this->getData('name')] = [
                         'edit' => [
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_EDIT,
                                 [
-                                    'blog_id' => $item['blog_id']
+                                    'post_id' => $item['post_id']
                                 ]
                             ),
                             'label' => __('Edit')
@@ -78,7 +78,7 @@ class BlogActions extends Column
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_DELETE,
                                 [
-                                    'blog_id' => $item['blog_id']
+                                    'post_id' => $item['post_id']
                                 ]
                             ),
                             'label' => __('Delete'),

@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -13,15 +14,15 @@ use Magento\Framework\EntityManager\EntityManager;
 use Magento\Framework\EntityManager\MetadataPool;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\Model\ResourceModel\Db\Context;
-use Space\Blog\Api\Data\BlogInterface;
+use Space\Blog\Api\Data\PostInterface;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\DB\Select;
-use Space\Blog\Model\Blog as BlogModel;
+use Space\Blog\Model\Post as PostModel;
 use Magento\Store\Model\Store;
 use Magento\Framework\Exception\LocalizedException;
 use Exception;
 
-class Blog extends AbstractDb
+class Post extends AbstractDb
 {
     /**
      * @var EntityManager
@@ -67,7 +68,7 @@ class Blog extends AbstractDb
      */
     protected function _construct(): void
     {
-        $this->_init('space_blog', BlogInterface::BLOG_ID);
+        $this->_init('space_blog', PostInterface::POST_ID);
     }
 
     /**
@@ -77,7 +78,7 @@ class Blog extends AbstractDb
      */
     public function getConnection(): AdapterInterface|bool
     {
-        return $this->metadataPool->getMetadata(BlogInterface::class)->getEntityConnection();
+        return $this->metadataPool->getMetadata(PostInterface::class)->getEntityConnection();
     }
 
     /**
@@ -86,14 +87,14 @@ class Blog extends AbstractDb
      * @param AbstractModel $object
      * @param mixed $value
      * @param string $field
-     * @return $this|Blog
+     * @return $this|Post
      * @throws LocalizedException
      */
-    public function load(AbstractModel $object, $value, $field = null): Blog|static
+    public function load(AbstractModel $object, $value, $field = null): Post|static
     {
-        $blogId = $this->getBlogId($object, $value, $field);
-        if ($blogId) {
-            $this->entityManager->load($object, $blogId);
+        $postId = $this->getPostId($object, $value, $field);
+        if ($postId) {
+            $this->entityManager->load($object, $postId);
         }
 
         return $this;
@@ -117,10 +118,10 @@ class Blog extends AbstractDb
      * Delete the object
      *
      * @param AbstractModel $object
-     * @return AbstractDb|Blog|$this
+     * @return AbstractDb|Post|$this
      * @throws Exception
      */
-    public function delete(AbstractModel $object): AbstractDb|Blog|static
+    public function delete(AbstractModel $object): AbstractDb|Post|static
     {
         $this->entityManager->delete($object);
 
@@ -137,9 +138,9 @@ class Blog extends AbstractDb
      * @throws LocalizedException
      * @throws Exception
      */
-    private function getBlogId(AbstractModel $object, mixed $value, string $field = null): bool|int|string
+    private function getPostId(AbstractModel $object, mixed $value, string $field = null): bool|int|string
     {
-        $entityMetadata = $this->metadataPool->getMetadata(BlogInterface::class);
+        $entityMetadata = $this->metadataPool->getMetadata(PostInterface::class);
         if (!$field) {
             $field = $entityMetadata->getIdentifierField();
         }
@@ -161,13 +162,13 @@ class Blog extends AbstractDb
      *
      * @param string $field
      * @param mixed $value
-     * @param BlogModel|AbstractModel $object
+     * @param PostModel|AbstractModel $object
      * @return Select
      * @throws Exception
      */
     protected function _getLoadSelect($field, $value, $object): Select
     {
-        $entityMetadata = $this->metadataPool->getMetadata(BlogInterface::class);
+        $entityMetadata = $this->metadataPool->getMetadata(PostInterface::class);
         $linkField = $entityMetadata->getLinkField();
 
         $select = parent::_getLoadSelect($field, $value, $object);
@@ -201,7 +202,7 @@ class Blog extends AbstractDb
     {
         $connection = $this->getConnection();
 
-        $entityMetadata = $this->metadataPool->getMetadata(BlogInterface::class);
+        $entityMetadata = $this->metadataPool->getMetadata(PostInterface::class);
         $linkField = $entityMetadata->getLinkField();
 
         $select = $connection->select()
@@ -211,8 +212,8 @@ class Blog extends AbstractDb
                 'sbs.' . $linkField . ' = sb.' . $linkField,
                 []
             )
-            ->where('sb.' . $entityMetadata->getIdentifierField() . ' = :blog_id');
+            ->where('sb.' . $entityMetadata->getIdentifierField() . ' = :post_id');
 
-        return $connection->fetchCol($select, ['blog_id' => (int)$id]);
+        return $connection->fetchCol($select, ['post_id' => (int)$id]);
     }
 }

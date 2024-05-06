@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -56,7 +57,7 @@ class Index extends Action implements HttpGetActionInterface
         $resultPage->getConfig()->getTitle()->prepend(__('Posts'));
 
         $dataPersistor = $this->_objectManager->get(DataPersistorInterface::class);
-        $dataPersistor->clear('space_blog');
+        $dataPersistor->clear('blog_post');
 
         return $resultPage;
     }

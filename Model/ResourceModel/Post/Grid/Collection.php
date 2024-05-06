@@ -1,15 +1,16 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
 
-namespace Space\Blog\Model\ResourceModel\Blog\Grid;
+namespace Space\Blog\Model\ResourceModel\Post\Grid;
 
 use Magento\Framework\App\ObjectManager;
 use Magento\Store\Model\StoreManagerInterface;
-use Space\Blog\Model\ResourceModel\Blog\Collection as BlogCollection;
+use Space\Blog\Model\ResourceModel\Post\Collection as PostCollection;
 use Magento\Framework\Api\Search\SearchResultInterface;
 use Magento\Framework\Data\Collection\Db\FetchStrategyInterface;
 use Magento\Framework\Data\Collection\EntityFactoryInterface;
@@ -25,7 +26,7 @@ use Magento\Framework\Api\Search\AggregationInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\ExtensibleDataInterface;
 
-class Collection extends BlogCollection implements SearchResultInterface
+class Collection extends PostCollection implements SearchResultInterface
 {
     /**
      * @var TimezoneInterface
@@ -98,11 +99,9 @@ class Collection extends BlogCollection implements SearchResultInterface
      */
     public function addFieldToFilter($field, $condition = null): static
     {
-        if ($field === 'creation_time' || $field === 'update_time') {
-            if (is_array($condition)) {
-                foreach ($condition as $key => $value) {
-                    $condition[$key] = $this->timeZone->convertConfigTimeToUtc($value);
-                }
+        if ($field === 'creation_time' || $field === 'update_time' && is_array($condition)) {
+            foreach ($condition as $key => $value) {
+                $condition[$key] = $this->timeZone->convertConfigTimeToUtc($value);
             }
         }
 

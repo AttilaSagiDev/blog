@@ -1,11 +1,12 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
 
-namespace Space\Blog\Model\ResourceModel\Blog;
+namespace Space\Blog\Model\ResourceModel\Post;
 
 use Magento\Framework\DB\Select;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
@@ -18,9 +19,9 @@ use Magento\Framework\Data\Collection\Db\FetchStrategyInterface;
 use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-use Space\Blog\Api\Data\BlogInterface;
-use Space\Blog\Model\Blog;
-use Space\Blog\Model\ResourceModel\Blog as BlogResourceModel;
+use Space\Blog\Api\Data\PostInterface;
+use Space\Blog\Model\Post;
+use Space\Blog\Model\ResourceModel\Post as BlogResourceModel;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Exception;
 
@@ -29,17 +30,17 @@ class Collection extends AbstractCollection
     /**
      * @var string
      */
-    protected $_idFieldName = 'blog_id';
+    protected $_idFieldName = 'post_id';
 
     /**
      * @var string
      */
-    protected $_eventPrefix = 'space_blog_collection';
+    protected $_eventPrefix = 'blog_post_collection';
 
     /**
      * @var string
      */
-    protected $_eventObject = 'blog_collection';
+    protected $_eventObject = 'post_collection';
 
     /**
      * @var StoreManagerInterface
@@ -86,7 +87,7 @@ class Collection extends AbstractCollection
      */
     protected function _afterLoad(): static
     {
-        $entityMetadata = $this->metadataPool->getMetadata(BlogInterface::class);
+        $entityMetadata = $this->metadataPool->getMetadata(PostInterface::class);
 
         $this->performAfterLoad('space_blog_store', $entityMetadata->getLinkField());
 
@@ -100,9 +101,9 @@ class Collection extends AbstractCollection
      */
     protected function _construct(): void
     {
-        $this->_init(Blog::class, BlogResourceModel::class);
+        $this->_init(Post::class, BlogResourceModel::class);
         $this->_map['fields']['store'] = 'store_table.store_id';
-        $this->_map['fields']['blog_id'] = 'main_table.blog_id';
+        $this->_map['fields']['post_id'] = 'main_table.post_id';
     }
 
     /**
@@ -113,7 +114,7 @@ class Collection extends AbstractCollection
      * @return void
      * @throws NoSuchEntityException
      */
-    protected function performAfterLoad(string $tableName, ?string $linkField): void
+    protected function performAfterLoad(string $tableName, ?string $linkField): void //NOSONAR
     {
         $linkedIds = $this->getColumnValues($linkField);
         if (count($linkedIds)) {
@@ -150,13 +151,13 @@ class Collection extends AbstractCollection
     }
 
     /**
-     * Returns pairs blog_id - title
+     * Returns pairs post_id - title
      *
      * @return array
      */
     public function toOptionArray(): array
     {
-        return $this->_toOptionArray('blog_id', 'title');
+        return $this->_toOptionArray('post_id', 'title');
     }
 
     /**
@@ -242,7 +243,7 @@ class Collection extends AbstractCollection
      */
     protected function _renderFiltersBefore(): void
     {
-        $entityMetadata = $this->metadataPool->getMetadata(BlogInterface::class);
+        $entityMetadata = $this->metadataPool->getMetadata(PostInterface::class);
         $this->joinStoreRelationTable('space_blog_store', $entityMetadata->getLinkField());
     }
 

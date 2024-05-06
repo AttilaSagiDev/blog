@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright © 2023, Open Software License ("OSL") v. 3.0
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 declare(strict_types=1);
@@ -11,6 +12,11 @@ use Magento\Store\Ui\Component\Listing\Column\Store\Options as StoreOptions;
 
 class Options extends StoreOptions
 {
+    /**
+     * All store view label
+     */
+    private const ALL_STORE_VIEW_LABEL = 'All Store Views';
+
     /**
      * All Store Views value
      */
@@ -27,8 +33,8 @@ class Options extends StoreOptions
             return $this->options;
         }
 
-        $this->currentOptions['All Store Views']['label'] = __('All Store Views');
-        $this->currentOptions['All Store Views']['value'] = self::ALL_STORE_VIEWS;
+        $this->currentOptions[self::ALL_STORE_VIEW_LABEL]['label'] = __('All Store Views');
+        $this->currentOptions[self::ALL_STORE_VIEW_LABEL]['value'] = self::ALL_STORE_VIEWS;
 
         $this->generateCurrentOptions();
 

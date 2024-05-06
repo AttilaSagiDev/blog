@@ -15,7 +15,7 @@
             <label>Space Blog</label>
             <tab>space_tab</tab>
             <resource>Space_Blog::space_blog</resource>
-            <group id="space_blog_config" translate="label" type="text" sortOrder="10" showInDefault="1"
+            <group id="blog_config" translate="label" type="text" sortOrder="10" showInDefault="1"
                    showInWebsite="1" showInStore="1">
                 <label>Configuration</label>
                 <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"

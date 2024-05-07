@@ -20,7 +20,7 @@ interface PostRepositoryInterface
      * Retrieve blogs matching the specified criteria
      *
      * @param SearchCriteriaInterface $searchCriteria
-     * @return PostSearchResultsInterface
+     * @return \Space\Blog\Api\Data\PostSearchResultsInterface
      * @throws LocalizedException
      */
     public function getList(SearchCriteriaInterface $searchCriteria): PostSearchResultsInterface;
@@ -29,7 +29,7 @@ interface PostRepositoryInterface
      * Retrieve post
      *
      * @param int $postId
-     * @return PostInterface
+     * @return \Space\Blog\Api\Data\PostInterface
      * @throws LocalizedException
      */
     public function getById(int $postId): PostInterface;

@@ -15,14 +15,14 @@ interface PostSearchResultsInterface extends SearchResultsInterface
     /**
      * Get blog items
      *
-     * @return PostInterface[]
+     * @return \Space\Blog\Api\Data\PostInterface[]
      */
     public function getItems();
 
     /**
      * Set blog items
      *
-     * @param PostInterface[] $items
+     * @param \Space\Blog\Api\Data\PostInterface[] $items
      * @return $this
      */
     public function setItems(array $items);

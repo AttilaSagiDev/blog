@@ -1,6 +1,6 @@
 {
     "name": "space/module-blog",
-    "description": "Magento 2 blog extension.",
+    "description": "Magento 2 Blog extension.",
     "type": "magento2-module",
     "license": [
         "OSL-3.0",

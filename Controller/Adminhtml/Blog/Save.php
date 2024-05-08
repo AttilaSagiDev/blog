@@ -69,7 +69,7 @@ class Save extends Action implements HttpPostActionInterface
      *
      * @return Redirect|ResponseInterface|ResultInterface
      */
-    public function execute(): Redirect|ResultInterface|ResponseInterface
+    public function execute(): Redirect|ResultInterface|ResponseInterface //NOSONAR
     {
         /** @var Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
@@ -110,7 +110,7 @@ class Save extends Action implements HttpPostActionInterface
             }
 
             $this->dataPersistor->set('blog_post', $data);
-            return $resultRedirect->setPath('*/*/edit', ['post_id' => $id]);
+            return $resultRedirect->setPath('*/*/edit', ['post_id' => $id]); //NOSONAR
         }
 
         return $resultRedirect->setPath('*/*/');

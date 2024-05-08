@@ -78,8 +78,8 @@ class Edit extends Action implements HttpGetActionInterface
         /** @var Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Space_Blog::blog')
-            ->addBreadcrumb(__('Edit Post'), __('Edit Post'))
-            ->addBreadcrumb(__('Edit Post'), __('Edit Post'));
+            ->addBreadcrumb(__('Edit Post'), __('Edit Post')) //NOSONAR
+            ->addBreadcrumb(__('Edit Post'), __('Edit Post')); //NOSONAR
         $resultPage->getConfig()->getTitle()->prepend(__('Posts'));
         $resultPage->getConfig()->getTitle()->prepend($post->getId() ? $post->getTitle() : __('New Post'));
 

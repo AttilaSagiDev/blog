@@ -5,8 +5,11 @@
  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 -->
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-right"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Blog - Latest Posts</title>
+    </head>
     <body>
         <referenceContainer name="content">
             <block class="Space\Blog\Block\PostList"

@@ -13,7 +13,9 @@
 <?php if (null !== $post && $post->getId()): ?>
     <div class="space-blog">
         <h2><?= $escaper->escapeHtml($post->getTitle()) ?></h2>
-        <span><?= $escaper->escapeHtml(__('Date: %1', $post->getUpdateTime())) ?></span>,
+        <?= $escaper->escapeHtml(
+            __('Date: %1', $block->formatDate($post->getUpdateTime(), \IntlDateFormatter::SHORT, true))
+        ) ?>,
         <span><?= $escaper->escapeHtml(__('by: %1', $post->getAuthor())) ?></span>
         <p style="margin-top: 10px">
             <?= $escaper->escapeHtml($post->getContent()); ?>

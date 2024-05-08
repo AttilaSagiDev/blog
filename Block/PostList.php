@@ -11,15 +11,12 @@ namespace Space\Blog\Block;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Space\Blog\Model\ResourceModel\Post\CollectionFactory;
-use Magento\Framework\Api\SearchCriteriaBuilder;
-use Space\Blog\Api\PostRepositoryInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Space\Blog\Api\Data\PostInterface;
 use Space\Blog\Model\ResourceModel\Post\Collection;
 use Magento\Theme\Block\Html\Pager;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Space\Blog\Api\Data\PostSearchResultsInterface;
 
 class PostList extends Template
 {

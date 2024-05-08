@@ -22,7 +22,11 @@
                         <?= $escaper->escapeHtml($post->getTitle()) ?>
                     </a>
                 </h2>
-                <span><?= $escaper->escapeHtml(__('Date: %1', $post->getUpdateTime())) ?></span>,
+                <span>
+                    <?= $escaper->escapeHtml(
+                        __('Date: %1', $block->formatDate($post->getUpdateTime(), \IntlDateFormatter::SHORT, true))
+                    ) ?>,
+                </span>,
                 <span><?= $escaper->escapeHtml(__('by: %1', $post->getAuthor())) ?></span>
                 <p style="margin-top: 10px">
                     <?= $escaper->escapeHtml($block->truncateString($post->getContent(), 80, '...', false)); ?>

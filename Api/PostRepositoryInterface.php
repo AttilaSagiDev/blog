@@ -38,7 +38,7 @@ interface PostRepositoryInterface
      * Save post
      *
      * @param PostInterface $post
-     * @return PostInterface
+     * @return \Space\Blog\Api\Data\PostInterface
      * @throws LocalizedException
      */
     public function save(PostInterface $post): PostInterface;

@@ -10,9 +10,11 @@
     <body>
         <referenceBlock name="page.main.title" remove="true" />
         <referenceContainer name="content">
-            <block class="Space\Blog\Block\View\Post"
-                   name="space.blog.view"
+            <block name="space.blog.view"
                    template="Space_Blog::view/post.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Space\Blog\ViewModel\View\PostRenderer</argument>
+                </arguments>
             </block>
         </referenceContainer>
     </body>

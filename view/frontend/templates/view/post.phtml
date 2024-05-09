@@ -6,10 +6,12 @@
 
 /**
  * @var $block \Space\Blog\Block\View\Post
- * @var $escaper Magento\Framework\Escaper;
+ * @var $escaper \Magento\Framework\Escaper;
+ * @var $viewModel \Space\Blog\ViewModel\View\PostRenderer
  */
 ?>
-<?php $post = $block->getPost(); ?>
+<?php $viewModel = $block->getData('view_model'); ?>
+<?php $post = $viewModel->getPost(); ?>
 <?php if (null !== $post && $post->getId()): ?>
     <div class="space-blog">
         <h2><?= $escaper->escapeHtml($post->getTitle()) ?></h2>
@@ -20,7 +22,7 @@
         <p style="margin-top: 10px">
             <?= $escaper->escapeHtml($post->getContent()); ?>
         </p>
-        <a href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>"
+        <a href="<?= $escaper->escapeUrl($viewModel->getBackUrl()) ?>"
            title="<?= $escaper->escapeHtml(__('Back')) ?>">
             <span><?= $escaper->escapeHtml(__('Back')) ?></span>
         </a>

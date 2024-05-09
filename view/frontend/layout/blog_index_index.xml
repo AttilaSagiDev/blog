@@ -7,10 +7,8 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-right"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <head>
-        <title>Blog - Latest Posts</title>
-    </head>
     <body>
+        <referenceBlock name="page.main.title" remove="true" />
         <referenceContainer name="content">
             <block class="Space\Blog\Block\PostList"
                    name="space.blog.list"

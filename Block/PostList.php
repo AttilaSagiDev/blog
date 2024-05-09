@@ -121,6 +121,8 @@ class PostList extends Template
     protected function _prepareLayout(): PostList|static
     {
         parent::_prepareLayout();
+        $this->pageConfig->getTitle()->set(__('Blog - Latest posts'));
+        $this->addBreadcrumbs();
         if ($this->getPosts()) {
             $pager = $this->getLayout()->createBlock(
                 Pager::class,
@@ -142,5 +144,30 @@ class PostList extends Template
     public function getPagerHtml(): string
     {
         return $this->getChildHtml('pager');
+    }
+
+    /**
+     * Add breadcrumbs
+     *
+     * @return void
+     * @throws LocalizedException
+     * @throws NoSuchEntityException
+     */
+    private function addBreadcrumbs(): void
+    {
+        $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
+        if ($breadcrumbs) {
+            $breadcrumbs->addCrumb(
+                'home',
+                [
+                    'label' => __('Home'),
+                    'title' => __('Go to Home Page'),
+                    'link' => $this->_storeManager->getStore()->getBaseUrl()
+                ]
+            )->addCrumb(
+                'post_list',
+                ['label' => __('Posts')]
+            );
+        }
     }
 }

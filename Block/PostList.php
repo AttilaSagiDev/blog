@@ -11,15 +11,12 @@ namespace Space\Blog\Block;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Space\Blog\Model\ResourceModel\Post\CollectionFactory;
-use Magento\Framework\Api\SearchCriteriaBuilder;
-use Space\Blog\Api\PostRepositoryInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Space\Blog\Api\Data\PostInterface;
 use Space\Blog\Model\ResourceModel\Post\Collection;
 use Magento\Theme\Block\Html\Pager;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Space\Blog\Api\Data\PostSearchResultsInterface;
 
 class PostList extends Template
 {
@@ -74,7 +71,7 @@ class PostList extends Template
             ->addFieldToFilter(PostInterface::IS_ACTIVE, ['eq' => 1])
             ->setPageSize($limit)
             ->setCurPage($page)
-            ->setOrder(PostInterface::POST_ID, 'DESC');
+            ->setOrder(PostInterface::CREATION_TIME, 'DESC');
 
         return $collection;
     }
@@ -124,6 +121,8 @@ class PostList extends Template
     protected function _prepareLayout(): PostList|static
     {
         parent::_prepareLayout();
+        $this->pageConfig->getTitle()->set(__('Blog - Latest posts'));
+        $this->addBreadcrumbs();
         if ($this->getPosts()) {
             $pager = $this->getLayout()->createBlock(
                 Pager::class,
@@ -145,5 +144,30 @@ class PostList extends Template
     public function getPagerHtml(): string
     {
         return $this->getChildHtml('pager');
+    }
+
+    /**
+     * Add breadcrumbs
+     *
+     * @return void
+     * @throws LocalizedException
+     * @throws NoSuchEntityException
+     */
+    private function addBreadcrumbs(): void
+    {
+        $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
+        if ($breadcrumbs) {
+            $breadcrumbs->addCrumb(
+                'home',
+                [
+                    'label' => __('Home'),
+                    'title' => __('Go to Home Page'),
+                    'link' => $this->_storeManager->getStore()->getBaseUrl()
+                ]
+            )->addCrumb(
+                'post_list',
+                ['label' => __('Posts')]
+            );
+        }
     }
 }

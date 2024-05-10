@@ -7,11 +7,17 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Blog - Post</title>
+    </head>
     <body>
+        <referenceBlock name="page.main.title" remove="true" />
         <referenceContainer name="content">
-            <block class="Space\Blog\Block\View\Post"
-                   name="space.blog.view"
+            <block name="space.blog.view"
                    template="Space_Blog::view/post.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Space\Blog\ViewModel\View\PostRenderer</argument>
+                </arguments>
             </block>
         </referenceContainer>
     </body>

@@ -5,6 +5,10 @@ Save,Save
 "Save options","Save options"
 "Save & Duplicate","Save & Duplicate"
 "Save & Close","Save & Close"
+"Blog - Latest posts","Blog - Latest posts"
+Home,Home
+"Go to Home Page","Go to Home Page"
+Posts,Posts
 "Parameter count has to be a number between 5 and 20","Parameter count has to be a number between 5 and 20"
 "Post collection must be empty. Current size: %1","Post collection must be empty. Current size: %1"
 "Unable to create post","Unable to create post"
@@ -13,7 +17,6 @@ Save,Save
 "We can't find a post to delete.","We can't find a post to delete."
 "This post no longer exists.","This post no longer exists."
 "Edit Post","Edit Post"
-Posts,Posts
 "New Post","New Post"
 Space,Space
 Blog,Blog
@@ -36,24 +39,18 @@ Delete,Delete
 More,More
 "There are no posts.","There are no posts."
 "Post not found.","Post not found."
-"Space Blogs","Space Blogs"
-"Space Blogs Management","Space Blogs Management"
-Blogs,Blogs
 "Space Blog","Space Blog"
-"Blog Options","Blog Options"
-"Enable Blogs","Enable Blogs"
-"Please select yes to enable blogs.","Please select yes to enable blogs."
+"Space Extensions","Space Extensions"
+Configuration,Configuration
+"Enable Blog","Enable Blog"
+"Please select yes to enable blog.","Please select yes to enable blog."
 "General Information","General Information"
 "Enable Post","Enable Post"
 Title,Title
 "Store View","Store View"
 Author,Author
 Content,Content
-"This is content for the post. Maximum characters 1000 and html
-                        tags not allowed
-                    ","This is content for the post. Maximum characters 1000 and html
-                        tags not allowed
-                    "
+"This is content for the post. Maximum characters 1000 and html tags not allowed","This is content for the post. Maximum characters 1000 and html tags not allowed"
 "Add New Post","Add New Post"
 "Are you sure you want to delete selected items?","Are you sure you want to delete selected items?"
 "Delete items","Delete items"
@@ -63,3 +60,4 @@ ID,ID
 Status,Status
 Created,Created
 Modified,Modified
+"Blog - Post","Blog - Post"

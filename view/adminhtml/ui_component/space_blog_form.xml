@@ -156,9 +156,7 @@
                     <rule name="max_text_length" xsi:type="number">1000</rule>
                 </validation>
                 <tooltip>
-                    <description translate="true">This is content for the post. Maximum characters 1000 and html
-                        tags not allowed
-                    </description>
+                    <description translate="true">This is content for the post. Maximum characters 1000 and html tags not allowed</description>
                 </tooltip>
             </settings>
         </field>

@@ -50,11 +50,7 @@ Title,Title
 "Store View","Store View"
 Author,Author
 Content,Content
-"This is content for the post. Maximum characters 1000 and html
-                        tags not allowed
-                    ","This is content for the post. Maximum characters 1000 and html
-                        tags not allowed
-                    "
+"This is content for the post. Maximum characters 1000 and html tags not allowed","This is content for the post. Maximum characters 1000 and html tags not allowed"
 "Add New Post","Add New Post"
 "Are you sure you want to delete selected items?","Are you sure you want to delete selected items?"
 "Delete items","Delete items"

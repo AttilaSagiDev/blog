@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/spaceBlog/:postId" method="GET">
+        <service class="Space\Blog\Api\PostRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/spaceBlog/search" method="GET">
+        <service class="Space\Blog\Api\PostRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/spaceBlog" method="POST">
+        <service class="Space\Blog\Api\PostRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Space_Blog::blog"/>
+        </resources>
+    </route>
+    <route url="/V1/spaceBlog/:id" method="PUT">
+        <service class="Space\Blog\Api\PostRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Space_Blog::blog"/>
+        </resources>
+    </route>
+    <route url="/V1/spaceBlog/:postId" method="DELETE">
+        <service class="Space\Blog\Api\PostRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Space_Blog::blog"/>
+        </resources>
+    </route>
+</routes>

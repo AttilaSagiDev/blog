@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Blog - Post</title>
+    </head>
+    <body>
+        <referenceBlock name="page.main.title" remove="true" />
+        <referenceContainer name="content">
+            <block name="space.blog.view"
+                   template="Space_Blog::view/post.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Space\Blog\ViewModel\View\PostRenderer</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Space_Blog::space_blog" title="Space Blog" translate="title"
+             module="Space_Blog" sortOrder="500"
+             parent="Magento_Backend::content"
+             resource="Space_Blog::space_blog"/>
+        <add id="Space_Blog::blog" title="Blog" translate="title"
+             module="Space_Blog" sortOrder="100" parent="Space_Blog::space_blog"
+             action="space/blog" resource="Space_Blog::blog"/>
+    </menu>
+</config>

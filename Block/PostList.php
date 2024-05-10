@@ -71,7 +71,7 @@ class PostList extends Template
             ->addFieldToFilter(PostInterface::IS_ACTIVE, ['eq' => 1])
             ->setPageSize($limit)
             ->setCurPage($page)
-            ->setOrder(PostInterface::POST_ID, 'DESC');
+            ->setOrder(PostInterface::CREATION_TIME, 'DESC');
 
         return $collection;
     }

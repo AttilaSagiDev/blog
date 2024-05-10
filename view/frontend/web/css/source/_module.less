@@ -1,0 +1,26 @@
+/**
+ * Copyright (c) 2024 Attila Sagi
+ * @license http://www.opensource.org/licenses/mit-license.html  MIT License
+ */
+
+.space-blog {
+    .space-blog.toolbar.bottom {
+        margin-top: 30px;
+
+        .toolbar-amount {
+            display: none;
+        }
+
+        @media only screen and (min-width: (@screen__m + 1)) {
+            .pager {
+                .pages {
+                    float: left;
+                }
+
+                .limiter {
+                    float: right;
+                }
+            }
+        }
+    }
+}

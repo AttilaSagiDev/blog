@@ -38,7 +38,7 @@
             </article>
         <?php endforeach; ?>
         <?php if ($block->getPagerHtml()): ?>
-            <div class="toolbar bottom" style="margin-top: 15px;"><?= $block->getPagerHtml() ?></div>
+            <div class="space-blog toolbar bottom"><?= $block->getPagerHtml() ?></div>
         <?php endif ?>
     <?php else: ?>
         <p><?= $escaper->escapeHtml(__('There are no posts.')) ?></p>
